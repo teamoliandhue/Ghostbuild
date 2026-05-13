@@ -124,10 +124,16 @@ With logo ✓, colour confirmed ✓, reference analysed ✓, content audit done 
 
 ---
 
-### Phase 7 — Pitch
+### Phase 7 — Post-Build Review (Before Pitching)
+
+Before the client is contacted, run the post-build review defined in `post-build-review.md`. Ask the questions in groups of 3 to 4. Apply what is learned immediately: update skill.md, update animations.md rating for the animation used, add any new patterns discovered. Commit the changes.
+
+This is not optional. Every build must feed the next one.
+
+### Phase 8 — Pitch
 Deploy to Vercel. Send cold outreach with the live link as the closer.
 
-### Phase 8 — Follow-Up
+### Phase 9 — Follow-Up
 Single follow-up on day 5. Never send a third message.
 
 ---
@@ -194,9 +200,11 @@ clients/[slug]/
 
 ---
 
-## Three.js Background Guidelines
+## Three.js and Animation Guidelines
 
-Match the Three.js scene to the client's industry:
+Full animation library is in `animations.md`. Always check it before writing new Three.js or CSS animation code. Reuse and adapt existing entries. Add new ones after every build.
+
+Quick reference — match Three.js scene to client's industry:
 
 | Industry | Three.js Concept |
 |----------|-----------------|
