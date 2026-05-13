@@ -1,5 +1,5 @@
 # GhostBuild Skill
-**By Oli & Hue** — Version 1.0
+**By Oli & Hue** — Version 2.0
 
 GhostBuild is a proactive outreach system where we find businesses with weak websites, silently rebuild their homepage, write their pitch strategy, and present it as a gift — showing exactly what we can do before they spend a rupee.
 
@@ -25,6 +25,7 @@ Find a target business whose website is underperforming. Signals to look for:
 - Generic stock photos with no brand personality
 - No urgency triggers or conversion mechanics
 - Mobile experience broken or clunky
+- Content not converting — vague copy, features not benefits, no emotional hook
 
 Good hunting grounds:
 - Local service businesses (education, clinic, real estate, legal, finance)
@@ -32,134 +33,278 @@ Good hunting grounds:
 - LinkedIn-active founders with no real web presence
 - Referrals from existing clients in adjacent industries
 
-### Phase 2 — Audit
-For each target, produce an `audit.md` with:
-- **Business snapshot** — what they do, who they serve, geography
-- **Current site score** — design, content, conversion, SEO (rate each /10)
-- **Top 5 problems** — specific, named, with evidence
-- **Opportunity statement** — what's possible if fixed
-- **Competitive gap** — how they compare to top 2 competitors
+---
 
-### Phase 3 — Build (The Ghost Work)
-Without any client contact, build:
-1. **Redesigned homepage** (`homepage/index.html`) — pixel-sharp, conversion-focused, fully responsive. Built in vanilla HTML/CSS/JS so anyone on the team can open and view it without a build step.
-2. **Pitch deck content** (`pitch-deck.md`) — slide-by-slide copy and structure, ready to drop into a deck tool (Notion, Slides, Figma).
-3. **Ad copy** (`ads/ad-copy.md`) — 3 Meta ad variants + 1 Google Search ad, ready to run.
+### Phase 2 — Setup & Logo Grab
+When a client URL is given:
 
-### Phase 4 — Pitch
-Send a cold outreach (email or LinkedIn DM) with:
-- Subject line that hooks on their specific pain
-- 2-sentence personalised opener
-- Link to the live preview of their redesigned homepage (hosted on Vercel)
-- A brief growth plan summary
-- One clear next step (15-min call booking link)
-
-No deck attached to cold outreach. The live homepage IS the deck.
-
-### Phase 5 — Follow-Up (if no response in 5 days)
-Send a single follow-up referencing a specific improvement from the redesign. Keep it under 4 lines. Never send a third message — if they don't respond, move on.
+1. **Create the client folder** at `clients/[slug]/website/` using the Next.js project scaffold (see Tech Stack section below)
+2. **Download the logo** — find the logo URL from their HTML source, download to `clients/[slug]/website/public/logo/`. If download fails, create the folder structure and ask the team to manually place the logo there before building.
+3. **Grab existing images** — identify images they're using (hero, team, office) and note their URLs. Download usable ones to `public/images/`.
 
 ---
 
-## Repository Structure
+### Phase 3 — Brand Analysis (Ask Before Building)
+Before touching a single component, run a brand analysis and present it to the team. This ensures the redesign elevates their identity, not erases it.
 
+Produce a `brand.md` file and present a summary covering:
+
+**A. Logo Colour Extraction**
+- What are the exact colours in their logo? (primary, accent, supporting)
+- What emotion/feeling do those colours convey?
+
+**B. Current Website vs. Brand Alignment**
+- Does the current website's colour palette match the logo?
+- Are the fonts consistent with the brand personality?
+- Is the visual language (photography style, illustration, iconography) coherent?
+- Score: Aligned / Partially Aligned / Misaligned
+
+**C. Proposed Brand System for Redesign**
+- Primary colour (from logo or elevated version)
+- Secondary/surface colour
+- Accent colour
+- Typography pairing (heading + body)
+- Visual language direction (e.g., "premium dark mode with gold accents", "clean white with bold navy")
+- Three.js background concept suggestion (e.g., "slow-rotating globe mesh for a global education consultancy")
+
+**Then ask:**
+> "This is our brand analysis. We're proposing [X brand direction]. Do you want to go with this, adjust anything, or do you have a different direction in mind?"
+
+---
+
+### Phase 4 — Reference Website (Ask Before Building)
+Before building, always ask:
+> "Before we start building, please share 1–3 reference websites whose design, feel, or layout you want us to draw inspiration from. This gives us a clear visual direction."
+
+Wait for references. Fetch them, extract what's being borrowed (layout patterns, animation style, section structure, colour mood), and document in `brand.md`.
+
+---
+
+### Phase 5 — Build (The Ghost Work)
+With logo ✓, brand direction approved ✓, references reviewed ✓ — build:
+
+1. **Redesigned homepage** — Next.js + Tailwind CSS + Three.js
+   - Use the actual client logo (never a text placeholder)
+   - Three.js background tailored to their domain/industry
+   - Use their existing images where they work; suggest Gemini prompts for replacements where they don't
+   - Every section has enough content — no thin sections
+   - Content is conversion-engineered (see Content Standards below)
+
+2. **Pitch deck content** (`pitch-deck.md`) — documents exactly what changed, why, and the expected impact
+
+3. **Ad copy** (`ads/ad-copy.md`) — 3 Meta variants + 2 Google Search campaigns
+
+---
+
+### Phase 6 — Pitch
+Deploy to Vercel. Send cold outreach with the live link as the closer.
+
+### Phase 7 — Follow-Up
+Single follow-up on day 5. Never send a third message.
+
+---
+
+## Tech Stack
+
+Every GhostBuild website is built with:
+
+| Layer | Tech | Why |
+|-------|------|-----|
+| Framework | Next.js 14 (App Router) | Fast, SEO-ready, easy Vercel deploy |
+| Styling | Tailwind CSS | Rapid, consistent, team-readable |
+| Animation / 3D | Three.js | Visually stunning backgrounds tailored to client domain |
+| Language | TypeScript | Type safety for team contributions |
+| Fonts | Google Fonts (via next/font) | Performance-optimised font loading |
+| Images | next/image | Optimised delivery, proper sizing |
+
+### Project Structure
 ```
-Ghostbuild/
-  skill.md                  ← This file. The playbook.
-  templates/
-    audit-template.md       ← Blank audit for new clients
-    pitch-deck-template.md  ← Blank pitch deck structure
-    ad-copy-template.md     ← Blank ad copy framework
-    outreach-email.md       ← Cold email / DM templates
-  clients/
-    [client-slug]/
-      audit.md              ← Phase 2 output
-      pitch-deck.md         ← Phase 3 output
-      homepage/
-        index.html          ← The rebuilt homepage
-        style.css           ← Extracted styles (if needed)
-        assets/             ← Images, icons
-      ads/
-        ad-copy.md          ← Phase 3 output
-      notes.md              ← Team notes, client status, follow-up log
+clients/[slug]/
+  website/
+    public/
+      logo/
+        logo.png        ← Client logo (always present before build starts)
+        logo.svg        ← SVG version if available
+      images/           ← Client's existing images + any new assets
+    src/
+      app/
+        layout.tsx      ← Root layout, fonts, meta
+        page.tsx        ← Homepage (assembled from components)
+        globals.css     ← Tailwind base + CSS variables
+      components/
+        Nav.tsx
+        Hero.tsx        ← Includes Three.js canvas
+        TrustStrip.tsx
+        Problem.tsx
+        Services.tsx
+        HowItWorks.tsx
+        Testimonials.tsx
+        FAQ.tsx
+        CTA.tsx
+        Footer.tsx
+      lib/
+        three-scene.ts  ← Three.js scene setup and animation logic
+    package.json
+    next.config.ts
+    tailwind.config.ts
+    tsconfig.json
+  audit.md
+  brand.md             ← Brand analysis + approved direction
+  pitch-deck.md
+  ads/
+    ad-copy.md
+  notes.md
 ```
 
 ---
 
-## Homepage Redesign Standards
+## Three.js Background Guidelines
 
-Every GhostBuild homepage must follow these rules:
+Match the Three.js scene to the client's domain:
 
-### Structure (in order)
-1. **Nav** — Logo, 3 max nav links, one CTA button (not "Contact Us")
-2. **Hero** — Headline (problem-aware, outcome-focused), subheadline, primary CTA, trust signal beneath fold
-3. **Social Proof Strip** — logos, numbers, or a single powerful quote
-4. **Problem → Solution** — Name their pain, show the fix
-5. **Services** — 3–4 max, with outcomes not features
-6. **How It Works** — 3-step process (makes them feel in control)
-7. **Testimonials** — Real quotes with photo, name, city, outcome
-8. **FAQ** — 4–6 questions addressing conversion blockers
-9. **Final CTA** — Repeated but reworded, with urgency
+| Industry | Three.js Concept |
+|----------|-----------------|
+| Study abroad / Education | Slow-rotating wireframe globe, particle constellations |
+| Real estate | Geometric low-poly landscape, subtle grid |
+| Healthcare / Clinic | Soft particle drift, DNA helix (subtle, bg only) |
+| Finance / Fintech | Flowing graph lines, data streams |
+| Legal | Minimalist floating planes, dark and authoritative |
+| Fashion / Retail | Abstract colour blobs, fluid simulation |
+| Tech / SaaS | Grid with floating nodes, neural network mesh |
 
-### Design Rules
-- Max 2 primary fonts
-- Max 3 brand colors + 1 accent
-- Every CTA button has a specific action verb (not "Submit" or "Contact")
-- Mobile-first build
-- No stock photos in hero — use abstract shapes, gradients, or real client imagery placeholder
-- All text passes WCAG AA contrast minimum
+Rules:
+- Always runs at 30fps or lower (performance)
+- Never competes with the headline — always subtle, bg layer
+- Dark scenes: lower opacity (0.15–0.3 on mesh)
+- Light scenes: very low opacity or monochrome
+- Must be pausable on `prefers-reduced-motion`
 
-### Content Rules
-- Hero headline: specific outcome, not "welcome to" or "best [service] in [city]"
+---
+
+## Homepage Structure (Required Sections)
+
+Every build must include all 9 sections. No thin sections — each must have enough content to stand alone.
+
+1. **Nav** — Logo (actual file), max 4 nav links, one specific CTA button
+2. **Hero** — Three.js bg, outcome-led headline, sub-copy, primary + secondary CTA, 3 trust signals
+3. **Trust Strip** — logos, partner names, or key numbers
+4. **Problem → Solution** — name the pain, show the fix, structured as 2-column dark section
+5. **Services** — 3–6 cards, each with icon, title, body, and a green outcome line
+6. **How It Works** — 3 steps with numbered connector line
+7. **Testimonials** — 3 real-feeling quotes with name, role, outcome
+8. **FAQ** — 6 questions addressing the real conversion blockers for their industry
+9. **Final CTA** — urgency signal, 2 buttons (primary + secondary), trust line
+10. **Footer** — links grouped by category, contact info, copyright
+
+---
+
+## Content Standards (Most Important)
+
+Weak content kills conversions even on a beautiful site. Every section must pass these checks:
+
+**Headlines**
+- Never "Welcome to [Brand]" or "Best [service] in [city]"
+- Always outcome-first or problem-aware
+- Specific beats vague: "Land your UK visa in under 21 days" > "Fast visa processing"
+
+**Body Copy**
+- Lead with the user's problem, not the company's features
 - Every service description ends with a benefit, not a feature
-- Numbers are specific: "87% visa approval rate" not "high success rate"
+- Numbers are specific with context: "92% visa approval rate across 200+ applications" not "high success rate"
+
+**CTAs**
+- Action verb + specific outcome: "Book Your Free Assessment →" not "Submit"
 - One primary CTA per section
-- CTAs use time/action framing: "Book a free 15-min call →" not "Get in touch"
+- Vary the wording across sections — never repeat the same button copy twice
+
+**Social Proof**
+- Testimonials name the specific outcome, not just "great service"
+- Include: person's name, what they achieved, where they are now
+- Trust signals anchor to real numbers
+
+**Conversion Blockers (always addressed in FAQ)**
+- Pricing / hidden fees
+- What happens if something goes wrong
+- Timeline / how long does it take
+- Minimum requirements / eligibility
+- Comparison to doing it alone / competitors
+- First step / what happens when I book
+
+**Pitch Deck Documentation**
+For every content improvement, `pitch-deck.md` must include:
+- What the original said
+- What we changed it to
+- Why (conversion principle behind the change)
 
 ---
 
-## Pitch Deck Structure (8 slides)
+## Image Strategy
 
-1. **The Gap** — Their current site vs. what's possible (screenshot comparison)
-2. **What We Found** — Top 3 specific problems with their site (data-backed)
-3. **The Redesign** — Showcase the rebuilt homepage
-4. **The Growth Plan** — 90-day roadmap: website → SEO → ads → conversion
-5. **Ads Preview** — 2 sample ad creatives ready to run
-6. **Results We've Driven** — Oli & Hue case study or relevant metric
-7. **What It Costs** — Transparent, tiered options
-8. **Next Step** — Single CTA: book a call
+1. **Use their existing images** where they work — it makes the preview feel real and personalised
+2. **Flag bad images** — if a hero image is stock or low quality, note it in `brand.md` and suggest a Gemini prompt to generate a replacement:
+
+```
+Gemini prompt format:
+"[Style]: [subject], [setting], [mood], [technical spec]"
+
+Example: "Photorealistic: confident young Indian student at a UK university campus, 
+golden hour lighting, aspirational and warm mood, wide angle, high resolution, 
+no text overlays"
+```
+
+3. **Never use placeholder images** in the pitch preview — always something real or AI-generated
 
 ---
 
-## Ad Copy Framework
+## Brand Analysis File Structure (`brand.md`)
 
-### Meta (Facebook / Instagram)
-- **Hook** (first 3 words stop the scroll)
-- **Pain line** (name the exact problem)
-- **Proof** (one specific number or testimonial fragment)
-- **CTA** (link to landing page, not homepage)
+```markdown
+# Brand Analysis — [Client Name]
 
-### Google Search
-- Headline 1: Target keyword + outcome
-- Headline 2: Differentiator or trust signal
-- Headline 3: CTA with action verb
-- Description: Problem + solution + urgency
+## Logo Colours
+- Primary: #XXXXXX ([name] — [emotion])
+- Accent: #XXXXXX ([name] — [emotion])
+- Supporting: #XXXXXX
+
+## Current Site vs Brand Alignment
+Score: Aligned / Partially Aligned / Misaligned
+[Explanation]
+
+## Proposed Brand System
+- Primary: #XXXXXX
+- Secondary: #XXXXXX
+- Accent: #XXXXXX
+- Surface/BG: #XXXXXX
+- Heading font: [font name + weight]
+- Body font: [font name + weight]
+- Visual language: [description]
+- Three.js concept: [description]
+
+## Reference Sites
+- [URL 1] — borrowing: [what specifically]
+- [URL 2] — borrowing: [what specifically]
+
+## Status
+[ ] Pending team approval
+[ ] Approved — build can begin
+```
 
 ---
 
 ## Team Contribution Guide
 
 When you pick up a GhostBuild client:
-1. Create `/clients/[slug]/` folder
-2. Copy and fill `templates/audit-template.md` → `audit.md`
-3. Build the homepage first — let the design decisions inform the deck
-4. Fill `pitch-deck.md` using what the homepage establishes
-5. Write ad copy last — it should reflect the homepage's primary CTA
-6. Add a `notes.md` with: date started, team member name, current status, any research notes
+1. Get the URL from the team
+2. Create `clients/[slug]/` and run the Next.js scaffold
+3. Download the logo — if it fails, create the folder and note it in `notes.md`
+4. Run brand analysis → write `brand.md` → present to team for approval
+5. Ask for reference websites → add to `brand.md`
+6. Get approval, then build
+7. Fill `pitch-deck.md` — document every content change with original → new → why
+8. Write ad copy last
 
-Commit your work with the prefix: `ghostbuild([client-slug]): [what you did]`
-
-Example: `ghostbuild(globalnexs): add homepage redesign and audit`
+Commit prefix: `ghostbuild([slug]): [what you did]`
+Example: `ghostbuild(globalnexs): add Next.js scaffold and brand analysis`
 
 ---
 
@@ -167,8 +312,9 @@ Example: `ghostbuild(globalnexs): add homepage redesign and audit`
 
 | Version | What Changed |
 |---------|-------------|
-| 1.0 | Initial skill — workflow, standards, globalnexs first client |
+| 1.0 | Initial skill — workflow, standards, globalnexs first client (vanilla HTML) |
+| 2.0 | Upgraded to Next.js + Tailwind + Three.js; added brand analysis phase; added reference-first workflow; image strategy with Gemini prompts; content standards with before/after pitch documentation; team structure guide |
 
 ---
 
-*This file grows with every GhostBuild. If you discover a better outreach hook, a smarter homepage pattern, or a faster audit method — update this file and bump the version.*
+*This file grows with every GhostBuild. Update it every time you discover a better pattern, hook, or standard. Bump the version number.*
