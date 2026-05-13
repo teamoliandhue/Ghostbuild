@@ -4,6 +4,37 @@ This repo is the GhostBuild workspace. The full playbook lives in [skill.md](ski
 
 ---
 
+## Session Kickoff — Greeting + Per-Person Branch
+
+**Trigger:** the first user message of a new session is a conversational greeting with no client context — anything in this rough family: `hey`, `hi`, `hello`, `yo`, `morning`, `what's up`, `whatsup`, `wassup`, `let's start`, `let's go`, `let's build`, `start a new build`, or a bare name like `it's Sara`.
+
+If that is the first message, **before doing anything else**, ask exactly two things in one short message:
+
+> "Welcome 👋 Two quick things before we start:
+> 1. What's your name? (so I work on your branch)
+> 2. What's the client website URL?"
+
+Wait for both answers. Once you have them:
+
+1. **Sanitize the name into a branch handle.** Lowercase, replace spaces and punctuation with hyphens, drop emojis. `Sara K.` → `sara-k`. `Hue` → `hue`.
+2. **Check for an existing branch with that handle:**
+   ```bash
+   git branch --list <handle>
+   ```
+   - If it exists: switch to it (`git checkout <handle>`). If the branch is already checked out in another worktree (`git worktree list` shows it), use the suffixed form `<handle>-<short-slug>` instead and tell the user.
+   - If it doesn't exist: `git checkout -b <handle>` from the current branch.
+3. **Tell the user one line:** `"You're on branch \`<handle>\` — let's go."`
+4. Now run the standard "Before You Do Anything Else" check below (read every `clients/*/progress.md`) BEFORE starting Phase 1 with the URL they gave.
+
+**Skip this kickoff entirely when:**
+- The first message includes a client URL directly (just start Phase 1).
+- The first message is `continue`, `resume`, names a client slug, or otherwise points at in-progress work (just run the existing `progress.md` resume flow).
+- The user explicitly says they don't need a branch (rare — but respect it).
+
+**Why this exists:** the team is multi-person on Claude Pro. Without per-person branches, two teammates working in parallel collide on the same files. Branching per person at session start makes it safe to work in parallel and makes commit attribution match the actual human.
+
+---
+
 ## Before You Do Anything Else In A New Session
 
 The team works on a Pro plan with limited tokens. A session can end mid-build and the next person continues hours later. To make that handoff safe, every active client folder has a `progress.md` file.
