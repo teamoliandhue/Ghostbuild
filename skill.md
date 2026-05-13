@@ -44,20 +44,31 @@ When a client URL is given:
 
 ---
 
-### Phase 3 — Logo Colour Extract (Keep It Simple)
+### Phase 3 — Logo Colour + Font Identification
 
-**This step is ONLY about colour identification — not building a brand system.**
+**Colours (keep it simple, no brand system):**
 
-Look at their logo and extract:
-- What colours appear in the logo (list the hex or approximate values)
+Look at their logo and current site, extract:
+- What colours appear in the logo (list hex or approximate values)
 - What colour is used for their primary button on the current site
 
-Then present exactly this to the team:
+Present to the team:
 > "Their logo uses [colour A] and [colour B]. Their current button colour is [colour C].
-> These are the only brand elements we're locking in.
-> What colour do you want for the website? We can go with [our suggestion based on logo] or you can direct us."
+> What colour do you want for the website? We suggest [suggestion based on logo] or direct us."
 
-Wait for the answer. Whatever colour direction the team confirms — that becomes the website palette. Do not impose a full brand system. Do not decide font pairings, visual language direction, or "brand personality" at this step. Just confirm the website colour.
+Wait for confirmation. That confirmed colour is the palette. Do not decide fonts, visual language, or brand personality here.
+
+**Fonts:**
+
+Identify the fonts used on their current website (check CSS, Google Fonts links, or @font-face declarations). Then ask:
+> "Their current site uses [Font Name]. Do you want to keep this font or switch to something else?"
+
+- If they want to keep it and it is a Google Font: load it via `next/font/google` — no file needed.
+- If they want to keep it and it is a custom or paid font: ask them to download the font files (`.woff2` preferred, `.woff` as fallback) and place them in `clients/[slug]/website/public/fonts/`. Tell them the exact path before building.
+- If they want a different font: confirm the new font name, then proceed as above.
+
+Font files folder: `clients/[slug]/website/public/fonts/[font-name]/`
+Load custom fonts via `@font-face` in `globals.css` pointing to `/fonts/[font-name]/[file].woff2`.
 
 ---
 
@@ -212,33 +223,59 @@ Extract from logo and current site → present to team → wait for answer → l
 
 ## Content Standards
 
-Every section must pass these checks before build:
+### Writing Voice — Most Important Rule
+
+Every word of copy must read like it was written by a senior human copywriter with 20 years of website content experience. Not like AI output.
+
+**The single clearest AI tell: the em dash (—). Never use it. Not once.**
+
+Other patterns to avoid:
+- Long compound sentences joined with "—" in the middle
+- Phrases like "we believe", "we are committed to", "our mission is", "we strive to"
+- Adjective stacking: "trusted, experienced, dedicated, passionate" — pick one or use none
+- Hollow openers: "In today's world", "Are you looking for", "Welcome to"
+- Bullet points that all start with a gerund: "Providing...", "Offering...", "Delivering..."
+- Ending with "and more" or "and beyond"
+- Any sentence that could appear on any competitor's site unchanged
+
+What good copy sounds like instead:
+- Short sentences. Punchy. Direct.
+- The reader's problem in the first sentence, not the company's name
+- Specific numbers over vague claims
+- Conversational but confident — like someone who has seen it all and knows exactly what works
+- Each line earns its place or gets cut
+
+Run every section through this test before finalising: "Would a real person actually say this out loud?" If no, rewrite it.
+
+---
+
+### Content Checks
 
 **Headlines** — Never "Welcome to [Brand]" or "Best [X] in [City]"
 - Outcome-first or problem-aware
-- Specific beats vague: "Visa in hand in under 14 weeks" > "Fast visa processing"
+- Specific beats vague: "Visa in hand in under 14 weeks" beats "Fast visa processing"
 
 **Body copy**
-- Lead with the user's problem, not the company's features
+- Lead with the reader's problem, not the company's features
 - End every service description with a benefit, not a feature
-- Numbers always have context: "92% visa approval rate across 200+ applications"
+- Numbers always carry context: "92% visa approval across 200+ applications" not "high success rate"
 
 **CTAs**
-- Action verb + specific outcome: "Book Your Free Assessment →" not "Submit"
+- Action verb plus specific outcome: "Book Your Free Assessment" not "Submit" or "Get in Touch"
 - One primary CTA per section
-- Never repeat the same CTA wording twice on the same page
+- Never repeat identical CTA wording twice on the same page
 
 **Social proof**
-- Name the specific outcome in every testimonial
-- Include: person, what they achieved, where they are now
+- Every testimonial names the specific outcome, not just "great service"
+- Include: person's name, what they achieved, where they are now
 
-**FAQ — always addresses these 6 conversion blockers:**
-1. Pricing / hidden fees
-2. What if something goes wrong
+**FAQ — always covers these 6 conversion blockers:**
+1. Pricing and hidden fees
+2. What happens if something goes wrong
 3. How long does it take
-4. Minimum requirements / eligibility
-5. Why you vs. doing it alone
-6. What happens when I book
+4. Minimum requirements or eligibility
+5. Why you over doing it alone or going to a competitor
+6. What happens the moment I book
 
 ---
 
@@ -293,6 +330,7 @@ Commit prefix: `ghostbuild([slug]): [what you did]`
 | 1.0 | Initial skill — workflow, standards, globalnexs first client (vanilla HTML) |
 | 2.0 | Next.js + Tailwind + Three.js; brand analysis phase; reference-first workflow; image strategy; content standards |
 | 3.0 | Corrected brand phase — only extract logo colours, confirm website colour with team, do not impose brand system. Corrected reference phase — reference is the design blueprint, not just inspiration. Added content-audit.md as required deliverable before build. Added client deletion process. |
+| 3.1 | Added font identification step in Phase 3 — identify current fonts, ask to keep or change, specify font file location for custom fonts. Added hard content rule: no em dashes ever, copy must read like 20-year human copywriter not AI, full list of AI writing patterns to avoid. |
 
 ---
 
