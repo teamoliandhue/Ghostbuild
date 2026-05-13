@@ -35,12 +35,14 @@ Good hunting grounds:
 
 ---
 
-### Phase 2 — Setup & Logo Grab
+### Phase 2 — Setup, Logo + Image Download
 When a client URL is given:
 
 1. Create the client folder at `clients/[slug]/website/` using the Next.js project scaffold
-2. Download the logo — find the logo image URL from their HTML, download to `clients/[slug]/website/public/logo/`
-3. If download fails, create the folder and ask the team to place it manually before building
+2. Download the logo — find the logo image URL from their HTML, save to `public/logo/`
+3. Download all existing site images — hero images, team photos, office shots, any visual — save to `public/images/` with clear names (`hero.jpg`, `team-1.jpg`, etc.)
+4. If any download fails, note the URL in `notes.md` and ask the team to drop the file in the correct folder
+5. After downloading, assess each image: keep and use, use but flag for replacement, or skip and write a generation prompt. All prompts go into `image-prompts.md`
 
 ---
 
@@ -155,8 +157,16 @@ clients/[slug]/
   website/
     public/
       logo/
-        logo.png          ← Client logo (must exist before build starts)
-      images/             ← Client's existing images + new assets
+        logo.png           ← Client logo (must exist before build starts)
+      images/              ← Downloaded from client site + any new assets
+        hero.jpg           ← Named clearly by purpose
+        team-1.jpg
+        office.jpg
+        [etc.]
+      fonts/               ← Custom/paid fonts only (Google Fonts loaded via next/font)
+        [font-name]/
+          font.woff2
+          font.woff
     src/
       app/
         layout.tsx
@@ -164,17 +174,18 @@ clients/[slug]/
         globals.css
       components/
         Nav.tsx
-        Hero.tsx          ← Three.js canvas lives here
+        Hero.tsx           ← Three.js canvas lives here
         [sections].tsx
       lib/
-        globe.ts          ← Three.js scene logic
+        globe.ts           ← Three.js scene logic
     package.json
     next.config.ts
     tailwind.config.ts
     tsconfig.json
-  audit.md                ← Website audit
-  content-audit.md        ← Content before/after with reasoning
-  brand.md                ← Logo colours + confirmed website colour only
+  audit.md                 ← Website audit and scores
+  content-audit.md         ← Content before/after with reasoning
+  image-prompts.md         ← AI generation prompts for every image needing replacement
+  brand.md                 ← Logo colours + confirmed website colour + confirmed font
   pitch-deck.md
   ads/
     ad-copy.md
@@ -281,17 +292,49 @@ Run every section through this test before finalising: "Would a real person actu
 
 ## Image Strategy
 
-1. Use existing client images where they convert
-2. Flag poor images in `content-audit.md` with a Gemini prompt:
+### Step 1 — Download their existing visuals first
 
+When the client URL is given, before building anything, scan their site for all images being used: hero images, team photos, office shots, service illustrations, anything. Download every usable one into `clients/[slug]/website/public/images/`. Name them clearly: `hero.jpg`, `team-1.jpg`, `office.jpg`, etc.
+
+These downloaded images go straight into the build. The redesign uses their actual visuals so the preview feels personal and real to them, not like a template demo.
+
+How to find image URLs: fetch the page HTML, look for `<img src="...">`, `background-image: url(...)` in inline styles, and any `og:image` meta tags. Download each one with `curl -L [url] -o public/images/[name]`.
+
+### Step 2 — Assess each image honestly
+
+After downloading, look at each image and decide:
+
+- **Keep and use** — the image is decent quality, relevant, and would work in the redesign
+- **Use but flag** — the image is what they have so we use it, but it is not ideal. Note it in `content-audit.md` and write a generation prompt below
+- **Skip** — pure stock photo with no connection to the brand. Do not use it. Write a generation prompt instead
+
+### Step 3 — Write generation prompts for every image that needs replacing
+
+For any image that is missing, too generic, or low quality, write a specific Gemini/AI image generation prompt. Store all prompts in `clients/[slug]/image-prompts.md`.
+
+Prompt format:
 ```
-Format: "[Style]: [subject], [setting], [mood], [technical spec], no text overlays"
-
-Example: "Photorealistic: confident young Indian student at a UK university campus,
-golden hour lighting, aspirational warm mood, wide angle, high resolution, no text overlays"
+Image: [what it's for — e.g. "Hero background", "Services section visual"]
+Prompt: [Style], [exact subject], [setting], [lighting], [mood], [camera angle], [resolution], no text, no watermarks
+Negative: [what to avoid — e.g. "no stock photo look, no generic handshake, no stiff poses"]
 ```
 
-3. Never use placeholder images in the pitch preview
+Example:
+```
+Image: Hero background
+Prompt: Photorealistic, confident young Indian woman in her mid-20s walking
+through the entrance of a modern UK university campus, golden hour side lighting,
+warm aspirational mood, wide angle, cinematic depth of field, 4K
+Negative: no stock photo look, no posed smile, no text overlays, no watermarks
+```
+
+Write a prompt even if you are not sure they need it. It costs nothing and gives the team options when they want to upgrade images later.
+
+### Step 4 — In the build, always reference real files
+
+Never use external image URLs from their old site inside the Next.js build. Always use the downloaded local file via `next/image` pointing to `/images/[name]`. If an image could not be downloaded, use a solid colour placeholder div with the generation prompt as a code comment above it so the team knows exactly what to drop in.
+
+No placeholder `[IMAGE]` text. No grey boxes without context. Always either a real image or a clearly labelled colour placeholder with the prompt ready.
 
 ---
 
@@ -331,6 +374,7 @@ Commit prefix: `ghostbuild([slug]): [what you did]`
 | 2.0 | Next.js + Tailwind + Three.js; brand analysis phase; reference-first workflow; image strategy; content standards |
 | 3.0 | Corrected brand phase — only extract logo colours, confirm website colour with team, do not impose brand system. Corrected reference phase — reference is the design blueprint, not just inspiration. Added content-audit.md as required deliverable before build. Added client deletion process. |
 | 3.1 | Added font identification step in Phase 3 — identify current fonts, ask to keep or change, specify font file location for custom fonts. Added hard content rule: no em dashes ever, copy must read like 20-year human copywriter not AI, full list of AI writing patterns to avoid. |
+| 3.2 | Image strategy overhaul — download all client site images into public/images/ at setup, use them in the build, assess each for quality, write AI generation prompts for anything that needs replacing, store all prompts in image-prompts.md. Never use placeholder boxes without a prompt. |
 
 ---
 
