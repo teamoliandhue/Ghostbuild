@@ -12,7 +12,8 @@
       "runtimeExecutable": "npm",
       "runtimeArgs": ["run", "dev"],
       "cwd": "clients/globalnexs/website",
-      "port": 4322
+      "port": 3001,
+      "autoPort": true
     }
   ]
 }
