@@ -1,0 +1,862 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>GlobalNexs — Study Abroad Consultancy, Kochi</title>
+  <meta name="description" content="Kerala's most trusted study abroad consultancy. 92% visa approval rate. 100+ partner universities across UK, Australia, Canada & Europe. Book a free assessment today." />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Playfair+Display:wght@700&display=swap" rel="stylesheet" />
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --navy: #0A1628;
+      --navy-mid: #112240;
+      --blue: #1B4FD8;
+      --blue-light: #2563EB;
+      --gold: #F59E0B;
+      --gold-light: #FCD34D;
+      --white: #FFFFFF;
+      --grey-100: #F8FAFC;
+      --grey-200: #E2E8F0;
+      --grey-400: #94A3B8;
+      --grey-600: #475569;
+      --grey-800: #1E293B;
+      --green: #10B981;
+      --radius-sm: 8px;
+      --radius-md: 16px;
+      --radius-lg: 24px;
+      --shadow-card: 0 4px 24px rgba(0,0,0,0.08);
+      --shadow-elevated: 0 8px 40px rgba(0,0,0,0.14);
+    }
+
+    html { scroll-behavior: smooth; }
+    body { font-family: 'Inter', sans-serif; color: var(--navy); background: var(--white); line-height: 1.6; }
+
+    /* ── NAV ── */
+    nav {
+      position: sticky; top: 0; z-index: 100;
+      background: rgba(10, 22, 40, 0.96);
+      backdrop-filter: blur(12px);
+      padding: 0 5%;
+      display: flex; align-items: center; justify-content: space-between;
+      height: 68px; border-bottom: 1px solid rgba(255,255,255,0.06);
+    }
+    .nav-logo { display: flex; align-items: center; gap: 10px; text-decoration: none; }
+    .nav-logo-mark {
+      width: 36px; height: 36px; border-radius: 8px;
+      background: linear-gradient(135deg, var(--blue), var(--gold));
+      display: flex; align-items: center; justify-content: center;
+      font-weight: 800; font-size: 16px; color: white;
+    }
+    .nav-logo-text { font-weight: 700; font-size: 18px; color: white; letter-spacing: -0.3px; }
+    .nav-links { display: flex; align-items: center; gap: 32px; list-style: none; }
+    .nav-links a { color: rgba(255,255,255,0.75); text-decoration: none; font-size: 14px; font-weight: 500; transition: color 0.2s; }
+    .nav-links a:hover { color: white; }
+    .btn-nav {
+      background: var(--gold); color: var(--navy); padding: 9px 20px;
+      border-radius: var(--radius-sm); font-size: 14px; font-weight: 700;
+      text-decoration: none; transition: background 0.2s, transform 0.1s;
+      white-space: nowrap;
+    }
+    .btn-nav:hover { background: var(--gold-light); transform: translateY(-1px); }
+    .nav-mobile-btn { display: none; background: none; border: none; cursor: pointer; padding: 4px; }
+    .nav-mobile-btn span { display: block; width: 22px; height: 2px; background: white; margin: 5px 0; border-radius: 2px; }
+
+    /* ── HERO ── */
+    .hero {
+      background: var(--navy);
+      min-height: 100vh; display: flex; align-items: center;
+      padding: 80px 5% 60px;
+      position: relative; overflow: hidden;
+    }
+    .hero-bg-shape {
+      position: absolute; top: -10%; right: -5%;
+      width: 600px; height: 600px; border-radius: 50%;
+      background: radial-gradient(circle, rgba(27,79,216,0.18) 0%, transparent 70%);
+      pointer-events: none;
+    }
+    .hero-bg-shape-2 {
+      position: absolute; bottom: -15%; left: 20%;
+      width: 400px; height: 400px; border-radius: 50%;
+      background: radial-gradient(circle, rgba(245,158,11,0.08) 0%, transparent 70%);
+      pointer-events: none;
+    }
+    .hero-inner { max-width: 1160px; margin: 0 auto; width: 100%; display: grid; grid-template-columns: 1fr 1fr; gap: 60px; align-items: center; }
+    .hero-badge {
+      display: inline-flex; align-items: center; gap: 8px;
+      background: rgba(245,158,11,0.12); border: 1px solid rgba(245,158,11,0.3);
+      padding: 6px 14px; border-radius: 100px; margin-bottom: 24px;
+      font-size: 13px; font-weight: 600; color: var(--gold);
+    }
+    .hero-badge-dot { width: 7px; height: 7px; border-radius: 50%; background: var(--gold); animation: pulse 2s infinite; }
+    @keyframes pulse { 0%,100% { opacity:1; } 50% { opacity:0.4; } }
+    .hero h1 {
+      font-family: 'Playfair Display', serif;
+      font-size: clamp(36px, 4.5vw, 58px); line-height: 1.15;
+      color: white; margin-bottom: 20px; letter-spacing: -0.5px;
+    }
+    .hero h1 em { font-style: normal; color: var(--gold); }
+    .hero-sub { font-size: 17px; color: rgba(255,255,255,0.65); margin-bottom: 36px; line-height: 1.7; max-width: 480px; }
+    .hero-cta-group { display: flex; align-items: center; gap: 16px; flex-wrap: wrap; margin-bottom: 48px; }
+    .btn-primary {
+      background: var(--blue-light); color: white;
+      padding: 14px 28px; border-radius: var(--radius-sm);
+      font-size: 15px; font-weight: 700; text-decoration: none;
+      display: inline-flex; align-items: center; gap: 8px;
+      transition: background 0.2s, transform 0.15s, box-shadow 0.2s;
+      box-shadow: 0 4px 20px rgba(27,79,216,0.4);
+    }
+    .btn-primary:hover { background: var(--blue); transform: translateY(-2px); box-shadow: 0 8px 28px rgba(27,79,216,0.5); }
+    .btn-ghost {
+      color: rgba(255,255,255,0.8); font-size: 15px; font-weight: 600;
+      text-decoration: none; display: inline-flex; align-items: center; gap: 6px;
+      transition: color 0.2s;
+    }
+    .btn-ghost:hover { color: white; }
+    .hero-trust { display: flex; align-items: center; gap: 24px; }
+    .hero-trust-item { display: flex; align-items: center; gap: 8px; }
+    .hero-trust-icon { color: var(--green); font-size: 16px; }
+    .hero-trust-text { font-size: 13px; color: rgba(255,255,255,0.55); }
+    .hero-trust-text strong { color: rgba(255,255,255,0.9); font-weight: 600; }
+
+    /* Hero visual panel */
+    .hero-visual { position: relative; }
+    .hero-card {
+      background: rgba(255,255,255,0.04); border: 1px solid rgba(255,255,255,0.1);
+      border-radius: var(--radius-lg); padding: 32px; backdrop-filter: blur(8px);
+    }
+    .hero-stat-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; margin-bottom: 20px; }
+    .hero-stat {
+      background: rgba(255,255,255,0.06); border-radius: var(--radius-md);
+      padding: 20px; text-align: center;
+    }
+    .hero-stat-number { font-size: 32px; font-weight: 800; color: white; line-height: 1; margin-bottom: 4px; }
+    .hero-stat-label { font-size: 12px; color: rgba(255,255,255,0.5); font-weight: 500; }
+    .hero-stat-number.gold { color: var(--gold); }
+    .hero-stat-number.green { color: var(--green); }
+    .hero-countries { display: flex; align-items: center; gap: 10px; padding: 16px; background: rgba(27,79,216,0.15); border-radius: var(--radius-md); }
+    .hero-countries-label { font-size: 13px; color: rgba(255,255,255,0.6); flex-shrink: 0; }
+    .hero-country-flags { display: flex; gap: 6px; flex-wrap: wrap; }
+    .flag-chip {
+      background: rgba(255,255,255,0.1); color: white;
+      padding: 4px 10px; border-radius: 100px; font-size: 12px; font-weight: 600;
+    }
+    .hero-floating-card {
+      position: absolute; bottom: -20px; left: -30px;
+      background: white; border-radius: var(--radius-md);
+      padding: 14px 18px; box-shadow: var(--shadow-elevated);
+      display: flex; align-items: center; gap: 12px;
+    }
+    .hero-floating-avatar {
+      width: 40px; height: 40px; border-radius: 50%;
+      background: linear-gradient(135deg, #6366F1, #8B5CF6);
+      display: flex; align-items: center; justify-content: center;
+      font-size: 16px; flex-shrink: 0;
+    }
+    .hero-floating-text { font-size: 13px; }
+    .hero-floating-text strong { display: block; color: var(--navy); font-weight: 700; margin-bottom: 2px; }
+    .hero-floating-text span { color: var(--grey-600); font-size: 12px; }
+    .hero-floating-stars { color: var(--gold); font-size: 11px; letter-spacing: 1px; }
+
+    /* ── TRUST STRIP ── */
+    .trust-strip {
+      background: var(--grey-100); border-top: 1px solid var(--grey-200); border-bottom: 1px solid var(--grey-200);
+      padding: 28px 5%;
+    }
+    .trust-strip-inner { max-width: 1160px; margin: 0 auto; display: flex; align-items: center; justify-content: space-between; gap: 24px; flex-wrap: wrap; }
+    .trust-label { font-size: 13px; color: var(--grey-400); font-weight: 600; letter-spacing: 0.5px; text-transform: uppercase; white-space: nowrap; }
+    .trust-logos { display: flex; align-items: center; gap: 32px; flex-wrap: wrap; }
+    .trust-logo-pill {
+      padding: 8px 20px; border-radius: 100px;
+      background: white; border: 1px solid var(--grey-200);
+      font-size: 13px; font-weight: 700; color: var(--grey-600);
+      letter-spacing: 0.3px;
+    }
+
+    /* ── SECTION COMMONS ── */
+    section { padding: 96px 5%; }
+    .section-inner { max-width: 1160px; margin: 0 auto; }
+    .section-tag {
+      display: inline-block; background: rgba(27,79,216,0.08);
+      color: var(--blue-light); font-size: 12px; font-weight: 700;
+      padding: 5px 14px; border-radius: 100px; letter-spacing: 0.5px;
+      text-transform: uppercase; margin-bottom: 14px;
+    }
+    h2 {
+      font-family: 'Playfair Display', serif;
+      font-size: clamp(28px, 3.5vw, 44px); line-height: 1.2;
+      color: var(--navy); letter-spacing: -0.3px;
+    }
+    .section-sub { font-size: 17px; color: var(--grey-600); margin-top: 14px; max-width: 560px; line-height: 1.7; }
+
+    /* ── PROBLEM → SOLUTION ── */
+    .problem-section { background: var(--navy); }
+    .problem-section h2 { color: white; }
+    .problem-section .section-sub { color: rgba(255,255,255,0.55); }
+    .problem-section .section-tag { background: rgba(245,158,11,0.15); color: var(--gold); }
+    .problem-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 60px; align-items: center; margin-top: 56px; }
+    .problem-list { display: flex; flex-direction: column; gap: 20px; }
+    .problem-item {
+      display: flex; gap: 16px; align-items: flex-start;
+      padding: 20px; border-radius: var(--radius-md);
+      background: rgba(255,255,255,0.04); border: 1px solid rgba(255,255,255,0.07);
+      transition: border-color 0.2s;
+    }
+    .problem-item:hover { border-color: rgba(245,158,11,0.3); }
+    .problem-icon { font-size: 22px; flex-shrink: 0; margin-top: 2px; }
+    .problem-item h3 { font-size: 15px; font-weight: 700; color: white; margin-bottom: 4px; }
+    .problem-item p { font-size: 14px; color: rgba(255,255,255,0.5); line-height: 1.6; }
+    .solution-panel {
+      background: linear-gradient(145deg, rgba(27,79,216,0.15), rgba(245,158,11,0.08));
+      border: 1px solid rgba(255,255,255,0.1); border-radius: var(--radius-lg);
+      padding: 36px;
+    }
+    .solution-panel h3 { color: white; font-size: 22px; font-weight: 700; margin-bottom: 24px; }
+    .solution-steps { display: flex; flex-direction: column; gap: 16px; }
+    .solution-step { display: flex; gap: 14px; align-items: flex-start; }
+    .step-num {
+      width: 32px; height: 32px; border-radius: 50%;
+      background: var(--blue-light); color: white;
+      font-size: 14px; font-weight: 700; display: flex; align-items: center; justify-content: center;
+      flex-shrink: 0;
+    }
+    .solution-step h4 { font-size: 14px; font-weight: 700; color: white; margin-bottom: 2px; }
+    .solution-step p { font-size: 13px; color: rgba(255,255,255,0.5); line-height: 1.5; }
+
+    /* ── SERVICES ── */
+    .services-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 24px; margin-top: 56px; }
+    .service-card {
+      border: 1px solid var(--grey-200); border-radius: var(--radius-lg);
+      padding: 32px 28px; transition: transform 0.2s, box-shadow 0.2s, border-color 0.2s;
+      background: white; position: relative; overflow: hidden;
+    }
+    .service-card::before {
+      content: ''; position: absolute; top: 0; left: 0; right: 0; height: 3px;
+      background: linear-gradient(90deg, var(--blue-light), var(--gold));
+      opacity: 0; transition: opacity 0.2s;
+    }
+    .service-card:hover { transform: translateY(-4px); box-shadow: var(--shadow-elevated); border-color: transparent; }
+    .service-card:hover::before { opacity: 1; }
+    .service-icon {
+      width: 48px; height: 48px; border-radius: var(--radius-sm);
+      background: rgba(27,79,216,0.08); display: flex; align-items: center; justify-content: center;
+      font-size: 22px; margin-bottom: 20px;
+    }
+    .service-card h3 { font-size: 17px; font-weight: 700; color: var(--navy); margin-bottom: 10px; }
+    .service-card p { font-size: 14px; color: var(--grey-600); line-height: 1.7; margin-bottom: 16px; }
+    .service-outcome {
+      display: inline-flex; align-items: center; gap: 6px;
+      font-size: 13px; font-weight: 600; color: var(--green);
+    }
+
+    /* ── HOW IT WORKS ── */
+    .how-section { background: var(--grey-100); }
+    .how-steps { display: grid; grid-template-columns: repeat(3, 1fr); gap: 32px; margin-top: 56px; position: relative; }
+    .how-steps::before {
+      content: ''; position: absolute; top: 28px; left: 16.66%; right: 16.66%;
+      height: 2px; background: linear-gradient(90deg, var(--blue-light), var(--gold));
+      z-index: 0;
+    }
+    .how-step { text-align: center; position: relative; z-index: 1; }
+    .how-step-num {
+      width: 56px; height: 56px; border-radius: 50%;
+      background: var(--blue-light); color: white;
+      font-size: 20px; font-weight: 800; display: flex; align-items: center; justify-content: center;
+      margin: 0 auto 20px; border: 4px solid var(--grey-100);
+      box-shadow: 0 0 0 4px var(--blue-light);
+    }
+    .how-step h3 { font-size: 17px; font-weight: 700; color: var(--navy); margin-bottom: 10px; }
+    .how-step p { font-size: 14px; color: var(--grey-600); line-height: 1.7; }
+
+    /* ── TESTIMONIALS ── */
+    .testimonials-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 24px; margin-top: 56px; }
+    .testimonial-card {
+      background: white; border: 1px solid var(--grey-200);
+      border-radius: var(--radius-lg); padding: 28px;
+      box-shadow: var(--shadow-card);
+    }
+    .testimonial-stars { color: var(--gold); font-size: 15px; letter-spacing: 2px; margin-bottom: 16px; }
+    .testimonial-quote { font-size: 15px; color: var(--grey-800); line-height: 1.75; margin-bottom: 20px; font-style: italic; }
+    .testimonial-quote::before { content: '\201C'; font-size: 36px; color: var(--blue-light); opacity: 0.3; display: block; line-height: 0.8; margin-bottom: 8px; }
+    .testimonial-author { display: flex; align-items: center; gap: 12px; }
+    .author-avatar {
+      width: 44px; height: 44px; border-radius: 50%;
+      display: flex; align-items: center; justify-content: center;
+      font-size: 18px; font-weight: 700; color: white; flex-shrink: 0;
+    }
+    .author-name { font-size: 14px; font-weight: 700; color: var(--navy); }
+    .author-detail { font-size: 12px; color: var(--grey-400); }
+
+    /* ── FAQ ── */
+    .faq-section { background: var(--grey-100); }
+    .faq-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; margin-top: 56px; }
+    .faq-item {
+      background: white; border: 1px solid var(--grey-200);
+      border-radius: var(--radius-md); overflow: hidden;
+    }
+    .faq-question {
+      width: 100%; background: none; border: none; cursor: pointer;
+      padding: 20px 24px; display: flex; align-items: center; justify-content: space-between;
+      font-size: 15px; font-weight: 600; color: var(--navy); text-align: left;
+      transition: background 0.15s;
+    }
+    .faq-question:hover { background: var(--grey-100); }
+    .faq-chevron { font-size: 20px; color: var(--blue-light); transition: transform 0.2s; flex-shrink: 0; }
+    .faq-item.open .faq-chevron { transform: rotate(45deg); }
+    .faq-answer {
+      max-height: 0; overflow: hidden;
+      font-size: 14px; color: var(--grey-600); line-height: 1.75;
+      transition: max-height 0.3s ease, padding 0.3s;
+    }
+    .faq-item.open .faq-answer { max-height: 200px; padding: 0 24px 20px; }
+
+    /* ── FINAL CTA ── */
+    .cta-section {
+      background: linear-gradient(135deg, var(--navy) 0%, var(--navy-mid) 100%);
+      text-align: center; position: relative; overflow: hidden;
+    }
+    .cta-section::before {
+      content: ''; position: absolute; top: -30%; left: 50%; transform: translateX(-50%);
+      width: 600px; height: 400px; border-radius: 50%;
+      background: radial-gradient(circle, rgba(27,79,216,0.25) 0%, transparent 70%);
+      pointer-events: none;
+    }
+    .cta-section h2 { color: white; position: relative; }
+    .cta-section .section-sub { color: rgba(255,255,255,0.6); margin: 16px auto 0; position: relative; }
+    .cta-deadline {
+      display: inline-flex; align-items: center; gap: 8px;
+      background: rgba(245,158,11,0.15); border: 1px solid rgba(245,158,11,0.3);
+      padding: 8px 18px; border-radius: 100px; margin: 24px 0 8px;
+      font-size: 13px; font-weight: 600; color: var(--gold); position: relative;
+    }
+    .cta-buttons { display: flex; gap: 16px; justify-content: center; flex-wrap: wrap; margin-top: 16px; position: relative; }
+    .btn-white {
+      background: white; color: var(--navy); padding: 14px 28px;
+      border-radius: var(--radius-sm); font-size: 15px; font-weight: 700;
+      text-decoration: none; transition: transform 0.15s, box-shadow 0.15s;
+      display: inline-flex; align-items: center; gap: 8px;
+    }
+    .btn-white:hover { transform: translateY(-2px); box-shadow: 0 8px 28px rgba(0,0,0,0.2); }
+    .btn-outline-white {
+      background: transparent; color: white; padding: 14px 28px;
+      border: 2px solid rgba(255,255,255,0.3); border-radius: var(--radius-sm);
+      font-size: 15px; font-weight: 700; text-decoration: none;
+      display: inline-flex; align-items: center; gap: 8px;
+      transition: border-color 0.2s, background 0.2s;
+    }
+    .btn-outline-white:hover { border-color: white; background: rgba(255,255,255,0.06); }
+    .cta-guarantee {
+      margin-top: 28px; font-size: 13px; color: rgba(255,255,255,0.4);
+      position: relative;
+    }
+    .cta-guarantee span { color: rgba(255,255,255,0.65); font-weight: 600; }
+
+    /* ── FOOTER ── */
+    footer {
+      background: var(--navy); border-top: 1px solid rgba(255,255,255,0.07);
+      padding: 48px 5% 32px;
+    }
+    .footer-inner { max-width: 1160px; margin: 0 auto; }
+    .footer-top { display: grid; grid-template-columns: 2fr 1fr 1fr 1fr; gap: 48px; margin-bottom: 40px; }
+    .footer-brand p { font-size: 14px; color: rgba(255,255,255,0.45); line-height: 1.7; margin-top: 14px; max-width: 280px; }
+    .footer-col h4 { font-size: 13px; font-weight: 700; color: rgba(255,255,255,0.7); text-transform: uppercase; letter-spacing: 0.5px; margin-bottom: 16px; }
+    .footer-col ul { list-style: none; display: flex; flex-direction: column; gap: 10px; }
+    .footer-col a { font-size: 14px; color: rgba(255,255,255,0.45); text-decoration: none; transition: color 0.2s; }
+    .footer-col a:hover { color: rgba(255,255,255,0.85); }
+    .footer-bottom {
+      border-top: 1px solid rgba(255,255,255,0.07); padding-top: 24px;
+      display: flex; align-items: center; justify-content: space-between;
+      font-size: 13px; color: rgba(255,255,255,0.35); flex-wrap: wrap; gap: 12px;
+    }
+    .footer-contact-chips { display: flex; gap: 16px; flex-wrap: wrap; }
+    .contact-chip {
+      display: inline-flex; align-items: center; gap: 6px;
+      color: rgba(255,255,255,0.5); font-size: 13px; text-decoration: none;
+      transition: color 0.2s;
+    }
+    .contact-chip:hover { color: white; }
+
+    /* ── RESPONSIVE ── */
+    @media (max-width: 900px) {
+      .hero-inner { grid-template-columns: 1fr; gap: 48px; }
+      .hero-visual { display: none; }
+      .problem-grid { grid-template-columns: 1fr; gap: 40px; }
+      .services-grid { grid-template-columns: 1fr 1fr; }
+      .how-steps::before { display: none; }
+      .how-steps { grid-template-columns: 1fr; gap: 24px; }
+      .testimonials-grid { grid-template-columns: 1fr 1fr; }
+      .faq-grid { grid-template-columns: 1fr; }
+      .footer-top { grid-template-columns: 1fr 1fr; }
+      .nav-links { display: none; }
+      .nav-mobile-btn { display: block; }
+    }
+    @media (max-width: 600px) {
+      section { padding: 64px 5%; }
+      .services-grid { grid-template-columns: 1fr; }
+      .testimonials-grid { grid-template-columns: 1fr; }
+      .footer-top { grid-template-columns: 1fr; }
+      .trust-strip-inner { flex-direction: column; align-items: flex-start; gap: 16px; }
+      .hero-trust { flex-direction: column; align-items: flex-start; gap: 12px; }
+    }
+
+    /* ── GHOST BUILD BADGE ── */
+    .ghostbuild-badge {
+      position: fixed; bottom: 20px; right: 20px; z-index: 999;
+      background: white; border-radius: 100px; padding: 8px 16px 8px 10px;
+      box-shadow: 0 4px 24px rgba(0,0,0,0.15); display: flex; align-items: center; gap: 8px;
+      font-size: 12px; font-weight: 700; color: var(--navy);
+      border: 1px solid var(--grey-200); text-decoration: none;
+    }
+    .ghostbuild-badge-dot { width: 8px; height: 8px; border-radius: 50%; background: var(--blue-light); }
+    .ghostbuild-badge span { color: var(--grey-400); font-weight: 500; }
+  </style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav>
+  <a href="#" class="nav-logo">
+    <div class="nav-logo-mark">GN</div>
+    <span class="nav-logo-text">GlobalNexs</span>
+  </a>
+  <ul class="nav-links">
+    <li><a href="#services">Services</a></li>
+    <li><a href="#how-it-works">Process</a></li>
+    <li><a href="#testimonials">Stories</a></li>
+    <li><a href="#faq">FAQ</a></li>
+  </ul>
+  <a href="#book" class="btn-nav">Book Free Assessment →</a>
+  <button class="nav-mobile-btn" aria-label="Menu">
+    <span></span><span></span><span></span>
+  </button>
+</nav>
+
+<!-- HERO -->
+<section class="hero" id="home">
+  <div class="hero-bg-shape"></div>
+  <div class="hero-bg-shape-2"></div>
+  <div class="hero-inner">
+    <div class="hero-content">
+      <div class="hero-badge">
+        <div class="hero-badge-dot"></div>
+        Kochi's Trusted Study Abroad Counsellors
+      </div>
+      <h1>
+        Land Your Seat at the<br/>
+        <em>Right University,</em><br/>
+        in the Right Country.
+      </h1>
+      <p class="hero-sub">
+        We handle everything — university shortlisting, IELTS coaching, visa paperwork, and loan assistance — so your focus stays on your future, not the paperwork.
+      </p>
+      <div class="hero-cta-group">
+        <a href="#book" class="btn-primary">
+          Start Your Free Assessment ↗
+        </a>
+        <a href="#how-it-works" class="btn-ghost">
+          See how it works →
+        </a>
+      </div>
+      <div class="hero-trust">
+        <div class="hero-trust-item">
+          <span class="hero-trust-icon">✓</span>
+          <span class="hero-trust-text"><strong>92%</strong> visa approval rate</span>
+        </div>
+        <div class="hero-trust-item">
+          <span class="hero-trust-icon">✓</span>
+          <span class="hero-trust-text"><strong>100+</strong> partner universities</span>
+        </div>
+        <div class="hero-trust-item">
+          <span class="hero-trust-icon">✓</span>
+          <span class="hero-trust-text"><strong>Zero</strong> hidden fees</span>
+        </div>
+      </div>
+    </div>
+    <div class="hero-visual">
+      <div class="hero-card">
+        <div class="hero-stat-grid">
+          <div class="hero-stat">
+            <div class="hero-stat-number gold">200+</div>
+            <div class="hero-stat-label">Students placed abroad</div>
+          </div>
+          <div class="hero-stat">
+            <div class="hero-stat-number green">92%</div>
+            <div class="hero-stat-label">Visa success rate</div>
+          </div>
+          <div class="hero-stat">
+            <div class="hero-stat-number">20+</div>
+            <div class="hero-stat-label">Countries available</div>
+          </div>
+          <div class="hero-stat">
+            <div class="hero-stat-number">100+</div>
+            <div class="hero-stat-label">University partners</div>
+          </div>
+        </div>
+        <div class="hero-countries">
+          <span class="hero-countries-label">Popular:</span>
+          <div class="hero-country-flags">
+            <span class="flag-chip">🇬🇧 UK</span>
+            <span class="flag-chip">🇦🇺 Australia</span>
+            <span class="flag-chip">🇨🇦 Canada</span>
+            <span class="flag-chip">🇩🇪 Germany</span>
+            <span class="flag-chip">🇮🇪 Ireland</span>
+          </div>
+        </div>
+      </div>
+      <div class="hero-floating-card">
+        <div class="hero-floating-avatar">🎓</div>
+        <div class="hero-floating-text">
+          <div class="hero-floating-stars">★★★★★</div>
+          <strong>Visa approved in 12 days</strong>
+          <span>Arjun P. — University of Exeter, UK</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- TRUST STRIP -->
+<div class="trust-strip">
+  <div class="trust-strip-inner">
+    <span class="trust-label">Partner universities</span>
+    <div class="trust-logos">
+      <span class="trust-logo-pill">University of Exeter</span>
+      <span class="trust-logo-pill">Deakin University</span>
+      <span class="trust-logo-pill">York University</span>
+      <span class="trust-logo-pill">TU Munich</span>
+      <span class="trust-logo-pill">+ 96 more</span>
+    </div>
+  </div>
+</div>
+
+<!-- PROBLEM → SOLUTION -->
+<section class="problem-section" id="why">
+  <div class="section-inner">
+    <span class="section-tag">The Challenge</span>
+    <h2>Studying abroad is complicated.<br/>Finding the right guide shouldn't be.</h2>
+    <p class="section-sub">Most students lose 3–6 months navigating confusing applications, unclear visa rules, and wrong university choices alone.</p>
+    <div class="problem-grid">
+      <div class="problem-list">
+        <div class="problem-item">
+          <span class="problem-icon">😰</span>
+          <div>
+            <h3>Overwhelmed by options</h3>
+            <p>20 countries, hundreds of universities, dozens of deadlines. Without guidance, most students pick the wrong course or miss intake windows entirely.</p>
+          </div>
+        </div>
+        <div class="problem-item">
+          <span class="problem-icon">📋</span>
+          <div>
+            <h3>Visa rejections from preventable errors</h3>
+            <p>Small documentation mistakes are the #1 cause of visa rejection. One wrong form or missing document and your plans are delayed by 6–12 months.</p>
+          </div>
+        </div>
+        <div class="problem-item">
+          <span class="problem-icon">💰</span>
+          <div>
+            <h3>Hidden costs from bad guidance</h3>
+            <p>Wrong university choice means wrong tuition fees, wrong scholarship eligibility, and sometimes — deportation back home mid-semester.</p>
+          </div>
+        </div>
+      </div>
+      <div class="solution-panel">
+        <h3>Here's what GlobalNexs does differently</h3>
+        <div class="solution-steps">
+          <div class="solution-step">
+            <div class="step-num">1</div>
+            <div>
+              <h4>Free eligibility assessment</h4>
+              <p>We map your profile to real universities — no generic shortlists, no false promises.</p>
+            </div>
+          </div>
+          <div class="solution-step">
+            <div class="step-num">2</div>
+            <div>
+              <h4>Dedicated counsellor, one point of contact</h4>
+              <p>Not a call centre. One counsellor handles your file from day one to departure.</p>
+            </div>
+          </div>
+          <div class="solution-step">
+            <div class="step-num">3</div>
+            <div>
+              <h4>Visa-first documentation strategy</h4>
+              <p>We build your file for visa approval from the start, not as an afterthought.</p>
+            </div>
+          </div>
+          <div class="solution-step">
+            <div class="step-num">4</div>
+            <div>
+              <h4>Support until you land</h4>
+              <p>Loan assistance, pre-departure briefings, and a community of GlobalNexs alumni abroad.</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- SERVICES -->
+<section id="services">
+  <div class="section-inner">
+    <span class="section-tag">What We Do</span>
+    <h2>Everything you need,<br/>under one roof.</h2>
+    <p class="section-sub">From your first IELTS class to your first day on campus — we're with you at every step.</p>
+    <div class="services-grid">
+      <div class="service-card">
+        <div class="service-icon">🎓</div>
+        <h3>University Admissions</h3>
+        <p>Personalised shortlisting across 100+ partner universities in UK, Australia, Canada, Europe, and more. We match your profile to the best fit — not just the easiest acceptance.</p>
+        <span class="service-outcome">✓ Avg. 3 offers per student</span>
+      </div>
+      <div class="service-card">
+        <div class="service-icon">📝</div>
+        <h3>IELTS / OET / PTE Coaching</h3>
+        <p>Structured coaching from experienced trainers with real exam simulations. We work around your schedule — weekday, weekend, and online batches available.</p>
+        <span class="service-outcome">✓ 85% score their target band first try</span>
+      </div>
+      <div class="service-card">
+        <div class="service-icon">✈️</div>
+        <h3>Visa Processing</h3>
+        <p>Student, dependent, and visiting visas handled with a documentation checklist built from 200+ successful applications. We know what each embassy actually wants to see.</p>
+        <span class="service-outcome">✓ 92% visa approval rate</span>
+      </div>
+      <div class="service-card">
+        <div class="service-icon">💳</div>
+        <h3>Education Loans</h3>
+        <p>We partner with leading banks and NBFCs to help you secure the best loan terms. No collateral options available for eligible students.</p>
+        <span class="service-outcome">✓ Avg. loan approval in 18 days</span>
+      </div>
+      <div class="service-card">
+        <div class="service-icon">📑</div>
+        <h3>Document Evaluation</h3>
+        <p>UKNARIC, WES, and international credential evaluation handled in-house. We verify before submission so embassies don't reject on technical grounds.</p>
+        <span class="service-outcome">✓ Zero rejection rate on evaluated docs</span>
+      </div>
+      <div class="service-card">
+        <div class="service-icon">🌍</div>
+        <h3>Pre-Departure Support</h3>
+        <p>Country briefings, accommodation guidance, SIM and bank account setup — so you arrive prepared, not overwhelmed. Plus lifelong access to our alumni network.</p>
+        <span class="service-outcome">✓ Students in 20+ countries</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- HOW IT WORKS -->
+<section class="how-section" id="how-it-works">
+  <div class="section-inner">
+    <span class="section-tag">The Process</span>
+    <h2>From "I want to study abroad"<br/>to "I just landed" — in 3 stages.</h2>
+    <p class="section-sub">We've refined this process across 200+ student journeys. Here's what yours looks like.</p>
+    <div class="how-steps">
+      <div class="how-step">
+        <div class="how-step-num">1</div>
+        <h3>Free Assessment Call</h3>
+        <p>A 30-minute session with your counsellor. We review your academic background, budget, career goals, and preferred countries — and give you a realistic shortlist the same day.</p>
+      </div>
+      <div class="how-step">
+        <div class="how-step-num">2</div>
+        <h3>Application & Test Prep</h3>
+        <p>We prepare and submit your applications, handle all communication with universities, and run parallel IELTS/OET coaching if needed. You review, we execute.</p>
+      </div>
+      <div class="how-step">
+        <div class="how-step-num">3</div>
+        <h3>Visa, Loan & Departure</h3>
+        <p>Once you have your offer letter, we move fast on visa filing, loan processing, and your pre-departure checklist. Most students land within 90 days of starting.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- TESTIMONIALS -->
+<section id="testimonials">
+  <div class="section-inner">
+    <span class="section-tag">Student Stories</span>
+    <h2>Real students. Real universities.<br/>Real outcomes.</h2>
+    <p class="section-sub">Don't take our word for it — here's what students who've been through the process say.</p>
+    <div class="testimonials-grid">
+      <div class="testimonial-card">
+        <div class="testimonial-stars">★★★★★</div>
+        <div class="testimonial-quote">My visa was approved in 14 days. I'd heard horror stories about UK visas but my counsellor built the documentation checklist from scratch and made sure every detail was airtight before we filed.</div>
+        <div class="testimonial-author">
+          <div class="author-avatar" style="background: linear-gradient(135deg, #6366F1, #8B5CF6);">A</div>
+          <div>
+            <div class="author-name">Arjun Pradeep</div>
+            <div class="author-detail">MSc Data Science — University of Exeter, UK</div>
+          </div>
+        </div>
+      </div>
+      <div class="testimonial-card">
+        <div class="testimonial-stars">★★★★★</div>
+        <div class="testimonial-quote">I was scared about the loan process. GlobalNexs handled the entire bank paperwork and I got approval within 3 weeks. They also negotiated a better interest rate than what I found online.</div>
+        <div class="testimonial-author">
+          <div class="author-avatar" style="background: linear-gradient(135deg, #EC4899, #F97316);">S</div>
+          <div>
+            <div class="author-name">Sneha Nair</div>
+            <div class="author-detail">BCom Accounting — Deakin University, Australia</div>
+          </div>
+        </div>
+      </div>
+      <div class="testimonial-card">
+        <div class="testimonial-stars">★★★★★</div>
+        <div class="testimonial-quote">What I didn't expect was the post-arrival support. Even after landing in Toronto, my counsellor helped me set up a bank account and connected me with Kerala students already studying there.</div>
+        <div class="testimonial-author">
+          <div class="author-avatar" style="background: linear-gradient(135deg, #10B981, #059669);">R</div>
+          <div>
+            <div class="author-name">Rohan Menon</div>
+            <div class="author-detail">MBA — York University, Canada</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- FAQ -->
+<section class="faq-section" id="faq">
+  <div class="section-inner">
+    <span class="section-tag">FAQ</span>
+    <h2>Questions we hear<br/>at every first consultation.</h2>
+    <div class="faq-grid">
+      <div class="faq-item">
+        <button class="faq-question" onclick="toggleFaq(this)">
+          How much does GlobalNexs charge for their services?
+          <span class="faq-chevron">+</span>
+        </button>
+        <div class="faq-answer">Our consultation and university application support is transparent with no hidden charges. We charge a one-time counselling fee that covers everything from shortlisting to offer letter receipt. Visa processing has a separate fee quoted upfront. Book a free assessment and we'll walk you through the full cost breakdown.</div>
+      </div>
+      <div class="faq-item">
+        <button class="faq-question" onclick="toggleFaq(this)">
+          What happens if my visa gets rejected?
+          <span class="faq-chevron">+</span>
+        </button>
+        <div class="faq-answer">In the rare event of a rejection, we analyse the refusal letter and re-file with corrected documentation at no additional visa consultancy fee. Our 92% approval rate is built on thorough pre-filing review — we identify risk factors before submission, not after.</div>
+      </div>
+      <div class="faq-item">
+        <button class="faq-question" onclick="toggleFaq(this)">
+          What's the minimum academic score required to apply?
+          <span class="faq-chevron">+</span>
+        </button>
+        <div class="faq-answer">It depends on the country and university. Some UK universities accept students with 55% aggregate; some Australian institutions have pathway programmes. We've helped students with lower scores find legitimate pathways. Book a free assessment — we'll be honest about your options, not just optimistic.</div>
+      </div>
+      <div class="faq-item">
+        <button class="faq-question" onclick="toggleFaq(this)">
+          How long does the full process take from consultation to visa?
+          <span class="faq-chevron">+</span>
+        </button>
+        <div class="faq-answer">On average, 8–14 weeks from the first consultation to visa in hand. This depends heavily on your IELTS readiness and which country you're applying to. UK is typically fastest; Canada can take longer. We'll give you a personalised timeline estimate at your free assessment.</div>
+      </div>
+      <div class="faq-item">
+        <button class="faq-question" onclick="toggleFaq(this)">
+          Do you help with education loans?
+          <span class="faq-chevron">+</span>
+        </button>
+        <div class="faq-answer">Yes — we work with SBI, HDFC Credila, Avanse, and other major lenders. We help structure your loan application to maximise approval chances and have no-collateral options for eligible students going to certain countries. Average approval time is 18 days.</div>
+      </div>
+      <div class="faq-item">
+        <button class="faq-question" onclick="toggleFaq(this)">
+          Can I start IELTS coaching while my application is in progress?
+          <span class="faq-chevron">+</span>
+        </button>
+        <div class="faq-answer">Absolutely — in fact, we recommend it. We run parallel tracks so your test prep and application prep happen simultaneously. Most universities accept conditional offers while you're still completing IELTS, so you don't lose intake time.</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- FINAL CTA -->
+<section class="cta-section" id="book">
+  <div class="section-inner" style="text-align:center;">
+    <span class="section-tag">Get Started</span>
+    <h2>Your intake window is open.<br/>Let's make sure you're in it.</h2>
+    <p class="section-sub" style="margin:16px auto 0;">The September 2026 UK & Australia intake deadline is closer than you think. Book your free assessment — our counsellors have limited slots each week.</p>
+    <div class="cta-deadline">
+      ⚡ September 2026 intake — limited assessment slots remaining
+    </div>
+    <div class="cta-buttons">
+      <a href="https://wa.me/91XXXXXXXXXX" class="btn-white">
+        💬 Book on WhatsApp →
+      </a>
+      <a href="mailto:info@globalnexs.com" class="btn-outline-white">
+        📧 Email us instead
+      </a>
+    </div>
+    <p class="cta-guarantee">
+      Free assessment, no pressure. <span>Zero spam, ever.</span>
+    </p>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <div class="footer-inner">
+    <div class="footer-top">
+      <div class="footer-brand">
+        <a href="#" class="nav-logo" style="text-decoration:none;">
+          <div class="nav-logo-mark">GN</div>
+          <span class="nav-logo-text">GlobalNexs</span>
+        </a>
+        <p>Helping Kerala students reach world-class universities since 2022. 200+ students placed across 20+ countries.</p>
+        <div class="footer-contact-chips" style="margin-top:16px;">
+          <a href="tel:+91XXXXXXXXXX" class="contact-chip">📞 +91 XXX XXX XXXX</a>
+          <a href="https://wa.me/91XXXXXXXXXX" class="contact-chip">💬 WhatsApp</a>
+        </div>
+      </div>
+      <div class="footer-col">
+        <h4>Services</h4>
+        <ul>
+          <li><a href="#">University Admissions</a></li>
+          <li><a href="#">IELTS Coaching</a></li>
+          <li><a href="#">Visa Processing</a></li>
+          <li><a href="#">Education Loans</a></li>
+          <li><a href="#">Pre-Departure</a></li>
+        </ul>
+      </div>
+      <div class="footer-col">
+        <h4>Countries</h4>
+        <ul>
+          <li><a href="#">United Kingdom</a></li>
+          <li><a href="#">Australia</a></li>
+          <li><a href="#">Canada</a></li>
+          <li><a href="#">Germany</a></li>
+          <li><a href="#">Ireland</a></li>
+        </ul>
+      </div>
+      <div class="footer-col">
+        <h4>Company</h4>
+        <ul>
+          <li><a href="#">About Us</a></li>
+          <li><a href="#">Our Team</a></li>
+          <li><a href="#">Student Stories</a></li>
+          <li><a href="#">Blog</a></li>
+          <li><a href="#">Contact</a></li>
+        </ul>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <span>© 2026 GlobalNexs International. Kochi, Kerala.</span>
+      <span>Privacy Policy · Terms of Service</span>
+    </div>
+  </div>
+</footer>
+
+<!-- GhostBuild Attribution (for pitch preview only — remove before handing off) -->
+<a href="https://www.oliandhue.com" class="ghostbuild-badge" target="_blank">
+  <div class="ghostbuild-badge-dot"></div>
+  Redesigned by Oli &amp; Hue <span>· GhostBuild Preview</span>
+</a>
+
+<script>
+  function toggleFaq(btn) {
+    const item = btn.closest('.faq-item');
+    const isOpen = item.classList.contains('open');
+    document.querySelectorAll('.faq-item.open').forEach(el => el.classList.remove('open'));
+    if (!isOpen) item.classList.add('open');
+  }
+</script>
+</body>
+</html>
