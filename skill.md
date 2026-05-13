@@ -1,5 +1,5 @@
 # GhostBuild Skill
-**By Oli & Hue** — Version 3.0
+**By Oli & Hue** — Version 3.4
 
 GhostBuild is a proactive outreach system where we find businesses with weak websites, silently rebuild their homepage, write their pitch strategy, and present it as a gift — showing exactly what we can do before they spend a rupee.
 
@@ -10,6 +10,20 @@ GhostBuild is a proactive outreach system where we find businesses with weak web
 > We don't pitch services. We deliver proof.
 
 Most agencies send decks with case studies. We send the actual work — a live redesigned homepage, a clear growth plan, and ads ready to run. The prospect sees their own brand, elevated. That's the close.
+
+---
+
+## Resuming a Build (Token Limit Safety)
+
+The team works on Claude Pro with limited tokens. A session can end mid-build. To survive that, every client folder has a `progress.md` (format defined in `CLAUDE.md`).
+
+**Rules:**
+1. The moment a client URL is given, create `clients/[slug]/progress.md` before doing anything else.
+2. Update `progress.md` at the end of every phase below.
+3. Update `progress.md` *before* you ask the team a question — so if the session dies after your reply, the next session knows what was asked.
+4. On a new session, read `progress.md` first and resume from `Next action`.
+
+This is non-negotiable. Skipping it means the team loses hours when a session ends.
 
 ---
 
@@ -39,10 +53,13 @@ Good hunting grounds:
 When a client URL is given:
 
 1. Create the client folder at `clients/[slug]/website/` using the Next.js project scaffold
-2. Download the logo — find the logo image URL from their HTML, save to `public/logo/`
-3. Download all existing site images — hero images, team photos, office shots, any visual — save to `public/images/` with clear names (`hero.jpg`, `team-1.jpg`, etc.)
-4. If any download fails, note the URL in `notes.md` and ask the team to drop the file in the correct folder
-5. After downloading, assess each image: keep and use, use but flag for replacement, or skip and write a generation prompt. All prompts go into `image-prompts.md`
+2. **Create `clients/[slug]/progress.md`** with `Status: setting-up` (see `CLAUDE.md` for format)
+3. Download the logo — find the logo image URL from their HTML, save to `public/logo/`
+4. Download all existing site images — hero images, team photos, office shots, any visual — save to `public/images/` with clear names (`hero.jpg`, `team-1.jpg`, etc.)
+5. If any download fails, note the URL in `notes.md` and ask the team to drop the file in the correct folder
+6. After downloading, assess each image: keep and use, use but flag for replacement, or skip and write a generation prompt. All prompts go into `image-prompts.md`
+
+**Checkpoint:** update `progress.md` — set logo/images flags, `Status: awaiting-colour`.
 
 ---
 
@@ -72,6 +89,8 @@ Identify the fonts used on their current website (check CSS, Google Fonts links,
 Font files folder: `clients/[slug]/website/public/fonts/[font-name]/`
 Load custom fonts via `@font-face` in `globals.css` pointing to `/fonts/[font-name]/[file].woff2`.
 
+**Checkpoint:** before asking the team the colour/font questions, update `progress.md` with the extracted colours/font and set `Status: awaiting-colour` (or `awaiting-font`). After the team answers, save confirmations to `brand.md` and update `progress.md`.
+
 ---
 
 ### Phase 4 — Reference Website (Ask Before Building)
@@ -86,6 +105,8 @@ When references are given:
 2. Document: layout structure, section order, typography scale, spacing rhythm, card patterns, how each section is visually distinct
 3. Rebuild in that exact pattern — the client's logo, their confirmed colour, and our improved content get fitted into that reference design
 4. If the reference uses large dark hero → we use large dark hero. If it uses grid card sections → we use grid card sections. Follow the reference closely.
+
+**Checkpoint:** update `progress.md` with the reference URL(s) and a one-line summary of the design pattern. Set `Status: building`.
 
 ---
 
@@ -106,6 +127,8 @@ Write a `content-audit.md` that lists:
 
 This becomes a section of the pitch deck — showing the client exactly what was wrong and what we fixed.
 
+**Checkpoint:** update `progress.md` notes with "content-audit.md complete".
+
 ---
 
 ### Phase 6 — Build (The Ghost Work)
@@ -122,6 +145,8 @@ With logo ✓, colour confirmed ✓, reference analysed ✓, content audit done 
 
 3. **Ad copy** (`ads/ad-copy.md`) — 3 Meta variants + 2 Google Search campaigns
 
+**Checkpoint after each section is built:** update `progress.md` notes with the section just completed. If the session dies mid-build, the next session knows which sections are done and which are pending. Once the homepage runs locally, set `Status: review-pending`.
+
 ---
 
 ### Phase 7 — Post-Build Review (Before Pitching)
@@ -130,8 +155,12 @@ Before the client is contacted, run the post-build review defined in `post-build
 
 This is not optional. Every build must feed the next one.
 
+**Checkpoint:** update `progress.md` notes with "post-build review complete". Set `Status: awaiting-deploy`.
+
 ### Phase 8 — Pitch
 Deploy to Vercel. Send cold outreach with the live link as the closer.
+
+**Checkpoint:** update `progress.md` with the Vercel URL and set `Status: done`.
 
 ### Phase 9 — Follow-Up
 Single follow-up on day 5. Never send a third message.
@@ -140,8 +169,9 @@ Single follow-up on day 5. Never send a third message.
 
 ### Deleting a Client
 When instructed to delete a client:
+- Set `Status: deleted` in `clients/[slug]/progress.md` first
 - Remove the entire `clients/[slug]/` folder
-- Do NOT remove anything from `skill.md`, `templates/`, or `.claude/`
+- Do NOT remove anything from `skill.md`, `templates/`, `.claude/`, or `CLAUDE.md`
 - Commit the deletion with message: `ghostbuild(remove): delete [slug] client data`
 
 ---
@@ -383,6 +413,8 @@ Commit prefix: `ghostbuild([slug]): [what you did]`
 | 3.0 | Corrected brand phase — only extract logo colours, confirm website colour with team, do not impose brand system. Corrected reference phase — reference is the design blueprint, not just inspiration. Added content-audit.md as required deliverable before build. Added client deletion process. |
 | 3.1 | Added font identification step in Phase 3 — identify current fonts, ask to keep or change, specify font file location for custom fonts. Added hard content rule: no em dashes ever, copy must read like 20-year human copywriter not AI, full list of AI writing patterns to avoid. |
 | 3.2 | Image strategy overhaul — download all client site images into public/images/ at setup, use them in the build, assess each for quality, write AI generation prompts for anything that needs replacing, store all prompts in image-prompts.md. Never use placeholder boxes without a prompt. |
+| 3.3 | Animation library + post-build review system. Three.js scenes now reference `animations.md` (12 documented animations). Every build feeds a structured 14-question review (`post-build-review.md`) before pitching. |
+| 3.4 | Token-limit safety: every client folder must keep a `progress.md` file. New sessions read it first to resume in-flight builds without losing context. `CLAUDE.md` at repo root tells every new session to check `progress.md` before doing anything. Each phase now ends in a checkpoint where progress.md is updated. |
 
 ---
 
