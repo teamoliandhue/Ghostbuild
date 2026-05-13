@@ -53,7 +53,7 @@ If the user opens a new session and types something like `continue`, `resume`, `
 ```markdown
 # Progress — [slug]
 
-**Status:** [one of: setting-up, awaiting-colour, awaiting-font, awaiting-reference, building, review-pending, awaiting-deploy, done, deleted]
+**Status:** [one of: setting-up, awaiting-colour, awaiting-font, awaiting-reference, awaiting-mockup-approval, mockup-approved, building, review-pending, awaiting-deploy, done, deleted]
 **Last updated:** [YYYY-MM-DD HH:MM]
 **Client URL:** [original site URL]
 
