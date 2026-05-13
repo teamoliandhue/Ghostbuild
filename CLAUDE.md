@@ -31,9 +31,22 @@ Every client folder must have a `progress.md` from the moment the client URL is 
 - Get a confirmation from the team (colour, font, reference site)
 - Pause to ask the team a question
 - Hit a blocker
+- Finish writing a component/file during the build phase
+- Start writing a component/file (set "Currently writing")
 - Finish the build
 
 **Update it BEFORE you reply to the user with a question.** That way if the session dies right after your message, the next session can read the file and know exactly what was being asked.
+
+**During the build phase, update it BEFORE you start writing each file** (set "Currently writing: [file]") and **AFTER you finish each file** (move it to "Files done", clear "Currently writing"). If a session resumes and "Currently writing" has a value, REWRITE that file from scratch — never trust a half-written component.
+
+## Resuming on "continue"
+
+If the user opens a new session and types something like `continue`, `resume`, `keep going`, or names a client by slug:
+
+1. Read the relevant `progress.md` silently (no chatty re-introduction)
+2. State in one sentence what you read: "Resuming **[slug]** — `Status: [x]`, next: [next action]."
+3. Do the next action immediately. Do not ask the user to re-confirm decisions already in `progress.md` (colour, font, reference, etc.) — they are locked in.
+4. If "Currently writing" had a value, mention it: "Last session was mid-write on [file] — rewriting that one from scratch." Then rewrite it.
 
 **Format (keep it short — under 60 lines):**
 
