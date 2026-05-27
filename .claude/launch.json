@@ -2,9 +2,9 @@
   "version": "0.0.1",
   "configurations": [
     {
-      "name": "globalnexs-preview",
+      "name": "globalnexs-mockup",
       "runtimeExecutable": "npx",
-      "runtimeArgs": ["serve", "clients/globalnexs/homepage", "-p", "4321", "--no-clipboard"],
+      "runtimeArgs": ["-y", "serve", "clients/globalnexs/mockup", "-p", "4321", "--no-clipboard"],
       "port": 4321
     },
     {
