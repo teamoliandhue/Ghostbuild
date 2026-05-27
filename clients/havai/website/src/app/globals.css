@@ -1,0 +1,53 @@
+@import "tailwindcss";
+
+@theme {
+  --color-navy-900: #0F1530;
+  --color-navy-800: #1A2348;
+  --color-navy-700: #465299;
+  --color-navy-100: #E4E7F4;
+  --color-yellow: #FFB503;
+  --color-bg: #FAFAFA;
+  --color-surface: #FFFFFF;
+  --color-ink: #0E1011;
+  --color-ink-soft: #5D6C7B;
+  --color-border: #E6E6E6;
+
+  --font-sans: var(--font-inter), ui-sans-serif, system-ui, -apple-system, sans-serif;
+}
+
+html, body {
+  background: var(--color-bg);
+  color: var(--color-ink);
+  font-family: var(--font-sans);
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after {
+    animation-duration: 0.001ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.001ms !important;
+  }
+}
+
+/* Reveal-on-scroll base */
+.reveal {
+  opacity: 0;
+  transform: translateY(24px);
+  transition: opacity 0.7s ease-out, transform 0.7s ease-out;
+  will-change: opacity, transform;
+}
+.reveal.is-visible {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+/* Headline text-balance for hero */
+.text-balance {
+  text-wrap: balance;
+}

@@ -1,5 +1,5 @@
 # GhostBuild Animation Library
-**Version 1.0**
+**Version 1.1**
 
 A living reference of animations used across GhostBuild sites. Each entry documents what the animation looks like, what industry it suits, how to implement it, and what to watch out for. Add a new entry every time a new animation is used in a build and validated by the team.
 
@@ -210,6 +210,39 @@ _Not yet rated_
 
 ---
 
+### 13. Airflow Streams
+
+**What it looks like**
+Thin, near-horizontal curves that drift across the canvas left-to-right at varied speeds and Y offsets. Each stream is short (under half the viewport wide), slightly wavy via a sine offset, and fades a small accent line (lighter blue) every 5th stream to add depth. Reads as visible air movement — exactly what a fan or cooler brand should suggest.
+
+**Best for**
+Fans, coolers, HVAC, ventilation, energy/utility, aerospace, anything where the product literally moves air or fluid. First used on Havai (BLDC fans + air coolers).
+
+**Technical approach**
+```typescript
+// OrthographicCamera so streams stay screen-aligned regardless of FOV
+// Per stream:
+//   - BufferGeometry with 80 segments, positions Float32Array
+//   - LineBasicMaterial: opacity 0.18 (white) or 0.32 (accent every 5th)
+// Animation loop (capped at 30fps):
+//   - head = (t * speed + offset) % 3 - 1.5  (wraps left to right)
+//   - for each segment u: x = head - u * width
+//   - y = yBase + sin((x + offset) * freq + t * 0.4) * amp
+// 22 streams default. yBase distributed across the viewport vertical range.
+// Honour prefers-reduced-motion: skip the animation loop entirely.
+```
+
+**Performance**
+Light. 22 lines * 80 segments * one position update per frame, plus 30fps cap. Even on a low-end laptop the canvas stays under 4% CPU.
+
+**Opacity range**
+0.18 to 0.32 on dark backgrounds. Do not use on light backgrounds — the streams need contrast against navy/charcoal to read as airflow.
+
+**Team rating after use**
+_Not yet rated — debut on Havai (2026-05-27)._
+
+---
+
 ## CSS and JavaScript Animations
 
 These run on page elements, not on a Three.js canvas. Used for scroll reveals, hover effects, and counters.
@@ -352,6 +385,7 @@ When picking an animation for a new build, answer these three questions:
 - Real estate: Low-Poly Terrain
 - Medical / science: DNA Helix
 - Creative / design: Floating Shapes
+- Fans / cooling / HVAC / ventilation: Airflow Streams
 
 **3. What does the reference website do?**
 - Always check what the reference site uses first.
@@ -370,4 +404,4 @@ When a new animation is used in a GhostBuild and approved:
 
 ---
 
-*Last updated: 2026-05-13 — v1.0 initial library, 12 animations documented*
+*Last updated: 2026-05-27 — v1.1 added Airflow Streams (Three.js #13, debut on Havai)*
