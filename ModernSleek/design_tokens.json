@@ -1,0 +1,215 @@
+{
+  "$schema": "modern-sleek-deck/v1",
+  "version": "1.0",
+  "description": "Design tokens for the ModernSleek deck system. The brand primary is read per-client from clients/[slug]/brand.md (the confirmed website colour locked in Phase 3 of Stage 1). Everything else (pastels, ink, typography, spacing) is fixed across every deck.",
+
+  "palette": {
+    "fixed": {
+      "comment": "These colors are deck-wide and never change between customers. Pastels are the supporting palette; ink/muted are text; pillBg is the eyebrow pill background.",
+      "paper": {
+        "white":         { "hex": "#FFFFFF", "rgb": [1.000, 1.000, 1.000], "use": "Default slide background" },
+        "cream":         { "hex": "#FFF4DE", "rgb": [1.000, 0.957, 0.871], "use": "Cover/closing slide gradient stop, also a card pastel" },
+        "pastelStart":   { "hex": "#A8D3FF", "rgb": [0.659, 0.827, 1.000], "use": "Cover gradient start (when used)" }
+      },
+      "ink":             { "hex": "#0B0E18", "rgb": [0.043, 0.055, 0.094], "use": "All headlines and body text" },
+      "muted":           { "hex": "#6C6C70", "rgb": [0.424, 0.424, 0.439], "use": "Subtitles, secondary text, captions" },
+      "pillBg":          { "hex": "#EDEFFF", "rgb": [0.929, 0.937, 1.000], "use": "Eyebrow pill background; also chip backgrounds for soft labels" },
+      "navTrack":        { "hex": "#F5F5F8", "rgb": [0.961, 0.961, 0.973], "use": "Inactive segments in phase navigator pill row" },
+      "ghost":           { "hex": "#F7F7F9", "rgb": [0.969, 0.969, 0.976], "use": "Empty/disabled card placeholder fill" },
+
+      "pastel": {
+        "cyan":          { "hex": "#C6F1FF", "rgb": [0.776, 0.945, 1.000] },
+        "lavender":      { "hex": "#E0D4F7", "rgb": [0.878, 0.831, 0.969] },
+        "peach":         { "hex": "#FFAFA3", "rgb": [1.000, 0.686, 0.639] },
+        "yellow":        { "hex": "#FFE166", "rgb": [1.000, 0.882, 0.400] },
+        "pink":          { "hex": "#FFA8DB", "rgb": [1.000, 0.659, 0.859] },
+        "mint":          { "hex": "#DFEBCF", "rgb": [0.875, 0.922, 0.812] },
+        "cream":         { "hex": "#FFF4DE", "rgb": [1.000, 0.957, 0.871] }
+      },
+
+      "pastelDeep": {
+        "comment": "Slightly darker variants of pastels — used for sales-row cards in matrix patterns or for two-tone hierarchy where the primary card is the lighter pastel. Use sparingly.",
+        "cyan":          { "hex": "#8CD9F2", "rgb": [0.549, 0.851, 0.949] },
+        "lavender":      { "hex": "#C7B3EB", "rgb": [0.780, 0.700, 0.922] },
+        "peach":         { "hex": "#F58D80", "rgb": [0.961, 0.553, 0.502] },
+        "yellow":        { "hex": "#F2C84D", "rgb": [0.949, 0.784, 0.302] }
+      },
+
+      "semantic": {
+        "yes":           { "hex": "#4DAF50", "rgb": [0.302, 0.686, 0.314], "use": "Yes pills in decision diagrams; 'green checkmark' badge background" },
+        "no":            { "hex": "#E84D3D", "rgb": [0.910, 0.302, 0.239], "use": "No pills in decision diagrams" },
+        "warning":       { "hex": "#FFE166", "rgb": [1.000, 0.882, 0.400], "use": "Caution chips (same as pastel.yellow)" }
+      }
+    },
+
+    "brand": {
+      "comment": "BRAND.primary is the per-client accent colour. Used in eyebrow pill text, headline accent words via setRangeFills, decorative dots, anchor strokes. NEVER as a card fill. There is no global default — every build reads the hex from clients/[slug]/brand.md (the confirmed website colour from Phase 3 of Stage 1).",
+      "primary": null,
+      "source": "clients/[slug]/brand.md → confirmed website colour"
+    }
+  },
+
+  "typography": {
+    "comment": "Stack with fallbacks. Radio Canada Big and Geist Mono may not be loadable in all Figma files — fall back to Inter Bold and Inter Medium respectively if so. Tell the user about substitutions.",
+    "stack": {
+      "display":  { "family": "Radio Canada Big", "fallback": "Inter",         "fallbackStyle": "Bold",   "use": "Display headlines, stat numbers" },
+      "subhead":  { "family": "Source Serif 4",   "fallback": "Inter",         "fallbackStyle": "Regular","use": "Subtitles paired with display headlines, eyebrow text in some hero cards" },
+      "body":     { "family": "Inter",            "fallback": "Inter",         "fallbackStyle": "Regular","use": "Default body, card content, lists" },
+      "mono":     { "family": "Geist Mono",       "fallback": "Inter",         "fallbackStyle": "Medium", "use": "Numeric IDs, codes, marker labels (rare)" }
+    },
+
+    "scale": {
+      "displayHero":     { "family": "Radio Canada Big", "style": "Medium",    "size": 96,  "letterSpacingPercent": -2,   "lineHeightPercent": 108, "use": "Cover slide hero; biggest headline on the deck" },
+      "displayLarge":    { "family": "Radio Canada Big", "style": "Medium",    "size": 74,  "letterSpacingPercent": -2,   "lineHeightPercent": 110, "use": "Section/phase opener headlines" },
+      "displayMedium":   { "family": "Radio Canada Big", "style": "Medium",    "size": 60,  "letterSpacingPercent": -2,   "lineHeightPercent": 115, "use": "Default content-slide headline" },
+      "displaySmall":    { "family": "Radio Canada Big", "style": "Medium",    "size": 54,  "letterSpacingPercent": -2,   "lineHeightPercent": 115, "use": "Compact headlines on dense content slides" },
+      "statHero":        { "family": "Radio Canada Big", "style": "Medium",    "size": 120, "letterSpacingPercent": -2,   "lineHeightPercent": 100, "use": "Hero stat numbers (centered cover-style)" },
+      "statLarge":       { "family": "Radio Canada Big", "style": "Medium",    "size": 96,  "letterSpacingPercent": -2,   "lineHeightPercent": 100, "use": "Stat-card numbers (default)" },
+      "statMedium":      { "family": "Radio Canada Big", "style": "Medium",    "size": 64,  "letterSpacingPercent": -2,   "lineHeightPercent": 100, "use": "Smaller stat numbers in dense grids or addons" },
+      "subheadLarge":    { "family": "Source Serif 4",   "style": "Regular",   "size": 36,  "letterSpacingPercent": -1,   "lineHeightPercent": 130, "use": "Subtitles on hero/cover slides" },
+      "subheadDefault":  { "family": "Source Serif 4",   "style": "Regular",   "size": 28,  "letterSpacingPercent": -1,   "lineHeightPercent": 135, "use": "Subtitles on content slides" },
+      "subheadSmall":    { "family": "Source Serif 4",   "style": "Regular",   "size": 26,  "letterSpacingPercent":  0,   "lineHeightPercent": 130, "use": "Card-internal sub-eyebrows / small subheads" },
+      "cardTitleLarge":  { "family": "Inter",            "style": "Semi Bold", "size": 30,  "letterSpacingPercent":  0,   "lineHeightPercent": 130, "use": "Hero card titles" },
+      "cardTitle":       { "family": "Inter",            "style": "Semi Bold", "size": 24,  "letterSpacingPercent":  0,   "lineHeightPercent": 130, "use": "Default card title" },
+      "body":            { "family": "Inter",            "style": "Regular",   "size": 24,  "letterSpacingPercent":  0,   "lineHeightPercent": 140, "use": "Default body text inside cards and chips" },
+      "bodyCompact":     { "family": "Inter",            "style": "Regular",   "size": 22,  "letterSpacingPercent":  0,   "lineHeightPercent": 140, "use": "Body in dense layouts" },
+      "eyebrow":         { "family": "Inter",            "style": "Medium",    "size": 24,  "letterSpacingPercent":  6,   "lineHeightPercent": 130, "use": "Eyebrow text inside the pill (UPPERCASE)" },
+      "pageNumber":      { "family": "Inter",            "style": "Medium",    "size": 22,  "letterSpacingPercent":  0,   "lineHeightPercent": 130, "use": "Bottom-left page number, e.g. '03 / 09'" },
+      "ctaButton":       { "family": "Inter",            "style": "Semi Bold", "size": 28,  "letterSpacingPercent":  0,   "lineHeightPercent": 130, "use": "CTA button label on closing slides" },
+      "monoCaption":     { "family": "Geist Mono",       "style": "Regular",   "size": 22,  "letterSpacingPercent":  4,   "lineHeightPercent": 130, "use": "Stage progression captions, small mono labels" }
+    }
+  },
+
+  "spacing": {
+    "canvas":            { "width": 1920, "height": 1080, "comment": "16:9 deck aspect — never change" },
+    "margins": {
+      "slim":            { "x": 64,  "y": 64,  "use": "Preferred — gives content more horizontal room" },
+      "traditional":     { "x": 120, "y": 64,  "use": "Use if existing slide template uses 120px margin" }
+    },
+    "verticalRhythm": {
+      "eyebrowY":        { "value": 64,   "use": "Top of eyebrow pill" },
+      "headlineY":       { "value": 144,  "use": "Top of headline block" },
+      "bodyStartY":      { "value": 300,  "use": "Top of main body content area" },
+      "bodyEndY":        { "value": 940,  "use": "Bottom of main body content area" },
+      "logoY":           { "value": 992,  "use": "Top of customer logo at bottom-right" },
+      "pageNumY":        { "value": 1010, "use": "Top of page number at bottom-left" }
+    },
+    "gaps": {
+      "betweenCardsRow": { "value": 24, "use": "Cards in a horizontal row" },
+      "betweenStackedCards": { "value": 18, "use": "Cards stacked vertically" },
+      "betweenChips":    { "value": 14, "use": "Chips in a strip" },
+      "headlineToBody":  { "value": 30, "use": "From bottom of header zone to top of body" },
+      "innerCard":       { "value": 12, "use": "Between elements inside a card" }
+    },
+    "padding": {
+      "card":            24,
+      "cardHero":        30,
+      "cardCompact":     18,
+      "pillEyebrow":     { "x": 18, "y": 10 },
+      "pillChip":        { "x": 14, "y": 10 },
+      "bannerEmphasis":  { "x": 30, "y": 24 }
+    },
+    "radius": {
+      "card":            24,
+      "cardHero":        33,
+      "cardLarge":       40,
+      "chip":            14,
+      "pillCapsule":     100,
+      "circleBadge":     20,
+      "buttonCta":       40
+    }
+  },
+
+  "components": {
+    "comment": "Composite component specs — combine palette + typography + spacing rules. Patterns in build/patterns.js compose these.",
+
+    "eyebrowPill": {
+      "fill": "fixed.pillBg",
+      "radius": 100,
+      "padding": { "x": 18, "y": 10 },
+      "text": {
+        "family": "Inter",
+        "style": "Medium",
+        "size": 24,
+        "color": "brand.primary",
+        "letterSpacingPercent": 6,
+        "transform": "as-typed (write the user's eyebrow uppercase if they want it caps; otherwise sentence-case is fine)"
+      }
+    },
+
+    "statCardDefault": {
+      "fill": "fixed.pastel.{pick}",
+      "radius": 24,
+      "padding": 24,
+      "gap": 8,
+      "stat": { "scale": "statLarge", "color": "fixed.ink" },
+      "label": { "scale": "cardTitle", "color": "fixed.ink" },
+      "subtitle": { "scale": "body", "color": "fixed.muted" }
+    },
+
+    "numberedCard": {
+      "fill": "fixed.pastel.{pick}",
+      "radius": 24,
+      "padding": 24,
+      "gap": 12,
+      "badge": {
+        "shape": "circle",
+        "size": 40,
+        "fill": "brand.primary",
+        "text": { "scale": "body", "color": "fixed.paper.white", "style": "Semi Bold" }
+      },
+      "title": { "scale": "cardTitle", "color": "fixed.ink" },
+      "body": { "scale": "body", "color": "fixed.ink" }
+    },
+
+    "blackEmphasisBanner": {
+      "fill": "fixed.ink",
+      "radius": 24,
+      "padding": { "x": 32, "y": 24 },
+      "text": { "scale": "cardTitle", "color": "fixed.paper.white", "style": "Medium" }
+    },
+
+    "phaseNavigator": {
+      "container": { "layout": "HORIZONTAL", "gap": 10, "height": 54 },
+      "active":   { "fill": "brand.primary", "text": { "color": "fixed.paper.white", "scale": "eyebrow" } },
+      "inactive": { "fill": "fixed.navTrack", "text": { "color": "fixed.muted",      "scale": "eyebrow" } }
+    },
+
+    "pillChip": {
+      "fill": "fixed.pillBg or fixed.pastel.{pick}",
+      "radius": 14,
+      "padding": { "x": 14, "y": 10 },
+      "text": { "scale": "body", "style": "Semi Bold or Regular", "color": "fixed.ink" }
+    },
+
+    "ctaButton": {
+      "fill": "fixed.ink",
+      "radius": 40,
+      "padding": { "x": 36, "y": 24 },
+      "text": { "scale": "ctaButton", "color": "fixed.paper.white", "style": "Semi Bold" },
+      "iconSuffix": "→ (arrow glyph or geometric arrow vector)"
+    }
+  },
+
+  "patterns": {
+    "comment": "Pointer table to build/patterns.js — each entry maps a pattern id to its function name and its reference image filename.",
+    "available": [
+      { "id": "coverSlide",              "fn": "buildCoverSlide",              "ref": "cover.png" },
+      { "id": "statementCards3",         "fn": "buildStatementCards3",         "ref": "problem-3-questions.png" },
+      { "id": "flow4Stage",              "fn": "buildFlow4Stage",              "ref": "flow-4-stage.png" },
+      { "id": "columnOwnership3",        "fn": "buildColumnOwnership3",        "ref": "ownership-3-column.png" },
+      { "id": "roles2Column",            "fn": "buildRoles2Column",            "ref": "roles-2-column.png" },
+      { "id": "platform3Modules",        "fn": "buildPlatform3Modules",        "ref": "platform-3-modules.png" },
+      { "id": "statsGrid",               "fn": "buildStatsGrid",               "ref": "stats-grid.png" },
+      { "id": "statsFunnel",             "fn": "buildStatsFunnel",             "ref": "stats-funnel.png" },
+      { "id": "proofStatsLogosQuote",    "fn": "buildProofStatsLogosQuote",    "ref": "proof-stats-logos-quote.png" },
+      { "id": "timelineQuarters",        "fn": "buildTimelineQuarters",        "ref": "timeline-quarters.png" },
+      { "id": "timelineWeeks",           "fn": "buildTimelineWeeks",           "ref": "timeline-weeks.png" },
+      { "id": "ctaOptionCards",          "fn": "buildCtaOptionCards",          "ref": "cta-option-cards.png" },
+      { "id": "ctaNumberedSteps",        "fn": "buildCtaNumberedSteps",        "ref": "cta-numbered-steps.png" },
+      { "id": "pricingTwoTier",          "fn": "buildPricingTwoTier",          "ref": "pricing-two-tier.png" },
+      { "id": "requirementsGrid",        "fn": "buildRequirementsGrid",        "ref": "requirements-grid.png" },
+      { "id": "integrationsChipStrip",   "fn": "buildIntegrationsChipStrip",   "ref": "integrations-chip-strip.png" }
+    ]
+  }
+}
