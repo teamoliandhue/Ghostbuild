@@ -1,0 +1,204 @@
+@import "tailwindcss";
+
+/* ===== Codingal design tokens — Synapse neo-brutalist pastel restyle ===== */
+@theme {
+  /* surfaces */
+  --color-cream: #fbf6ec;
+  --color-cream-deep: #f3ecd8;
+  --color-surface: #ffffff;
+
+  /* ink = near-black, used for text AND all outlines */
+  --color-ink: #17120e;
+  --color-ink-soft: #5b524a;
+  --color-line: #17120e;
+
+  /* brand */
+  --color-coral: #f9543b;
+  --color-coral-dark: #e23e27;
+  --color-coral-soft: #fbd9d2;
+
+  /* candy pastels (token names kept stable for components) */
+  --color-grass: #5fc36e;
+  --color-grass-soft: #cdeccf;
+  --color-sky: #6cb5e8;
+  --color-sky-soft: #cfe7f7;
+  --color-sun: #f0c43c;
+  --color-sun-soft: #fbeeba;
+  --color-grape: #a98cee;
+  --color-grape-soft: #e4d9fb;
+  --color-pink: #ef9b90;
+  --color-pink-soft: #fbd9d4;
+
+  --font-display: var(--font-fraunces), Georgia, serif;
+  --font-sans: var(--font-dm-sans), ui-sans-serif, system-ui, sans-serif;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  background-color: var(--color-cream);
+  color: var(--color-ink);
+  font-family: var(--font-sans);
+  -webkit-font-smoothing: antialiased;
+}
+
+/* Headlines: warm serif with optical sizing */
+.font-display {
+  font-family: var(--font-display);
+  font-weight: 700;
+  font-optical-sizing: auto;
+  letter-spacing: -0.01em;
+}
+
+/* ===== Neo-brutalist outline + hard shadow system ===== */
+.card-out {
+  background: var(--color-surface);
+  border: 2px solid var(--color-ink);
+  border-radius: 22px;
+  box-shadow: 5px 5px 0 0 var(--color-ink);
+}
+.card-out-lg {
+  background: var(--color-surface);
+  border: 2px solid var(--color-ink);
+  border-radius: 28px;
+  box-shadow: 7px 7px 0 0 var(--color-ink);
+}
+.shadow-hard {
+  box-shadow: 5px 5px 0 0 var(--color-ink);
+}
+.shadow-hard-sm {
+  box-shadow: 3px 3px 0 0 var(--color-ink);
+}
+
+.btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  border: 2px solid var(--color-ink);
+  border-radius: 999px;
+  box-shadow: 4px 4px 0 0 var(--color-ink);
+  font-weight: 700;
+  transition: transform 0.12s ease, box-shadow 0.12s ease, background-color 0.15s ease;
+}
+.btn:hover {
+  transform: translate(2px, 2px);
+  box-shadow: 2px 2px 0 0 var(--color-ink);
+}
+.btn:active {
+  transform: translate(4px, 4px);
+  box-shadow: 0 0 0 0 var(--color-ink);
+}
+.btn-primary {
+  background: var(--color-coral);
+  color: #ffffff;
+}
+.btn-secondary {
+  background: var(--color-surface);
+  color: var(--color-ink);
+}
+
+.chip {
+  display: inline-flex;
+  align-items: center;
+  border: 2px solid var(--color-ink);
+  border-radius: 999px;
+  font-weight: 700;
+  color: var(--color-ink);
+}
+
+/* ===== Folder-shaped card (outline from Vector 1636.svg) ===== */
+.folder-card {
+  position: relative;
+  margin-top: 1.5rem; /* gap between stacked cards */
+}
+/* the SVG outline stretches to the card size; non-scaling-stroke keeps 2px crisp */
+.folder-outline {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  z-index: 0;
+  pointer-events: none;
+  filter: drop-shadow(5px 5px 0 var(--color-ink)); /* hard folder-shaped shadow */
+}
+.folder-flag {
+  position: absolute;
+  top: 0.5rem;
+  left: 1rem;
+  z-index: 2;
+  display: inline-flex;
+  align-items: center;
+  gap: 0.4rem;
+  font-weight: 700;
+  white-space: nowrap;
+}
+.folder-body {
+  position: relative;
+  z-index: 1;
+}
+
+/* ===== Scroll reveal (animations.md #8) ===== */
+.reveal {
+  opacity: 0;
+  transform: translateY(24px);
+  transition: opacity 0.6s ease-out, transform 0.6s ease-out;
+  will-change: opacity, transform;
+}
+.reveal.is-visible {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
+  .reveal {
+    opacity: 1;
+    transform: none;
+    transition: none;
+  }
+  .doodle-float {
+    animation: none !important;
+  }
+}
+
+/* Subtle floating doodle accents */
+@keyframes doodleFloat {
+  0%, 100% { transform: translateY(0) rotate(var(--rot, 0deg)); }
+  50% { transform: translateY(-8px) rotate(var(--rot, 0deg)); }
+}
+.doodle-float {
+  animation: doodleFloat 5s ease-in-out infinite;
+}
+
+/* Hero illustration animations */
+@keyframes floatUp {
+  0%, 100% { transform: translateY(0px); }
+  50%       { transform: translateY(-12px); }
+}
+@keyframes floatUpSlow {
+  0%, 100% { transform: translateY(0px) rotate(-2deg); }
+  50%       { transform: translateY(-8px) rotate(2deg); }
+}
+@keyframes fadeSlideIn {
+  from { opacity: 0; transform: translateY(20px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+@keyframes popIn {
+  0%   { opacity: 0; transform: scale(0.7); }
+  70%  { transform: scale(1.06); }
+  100% { opacity: 1; transform: scale(1); }
+}
+@keyframes pulse-dot {
+  0%, 100% { opacity: 0.35; }
+  50%       { opacity: 0.9; }
+}
+
+.ilu-doc     { animation: floatUp     3.8s ease-in-out infinite; transform-origin: center; }
+.ilu-char    { animation: fadeSlideIn 0.7s ease-out both; }
+.ilu-deco    { animation: floatUpSlow 5s   ease-in-out infinite; }
+.ilu-dots    { animation: pulse-dot   3s   ease-in-out infinite; }
+.ilu-badge   { animation: popIn       0.6s 0.4s ease-out both; }
